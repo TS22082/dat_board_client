@@ -21,7 +21,7 @@ const LandingPage = () => {
       try {
         const response = await fetch("/api/verify_jwt", {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: accessToken,
           },
         });
 
@@ -63,7 +63,7 @@ const LandingPage = () => {
             variant="contained"
             color="primary"
             size="large"
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/auth")}
             sx={{ mt: 4 }}
           >
             Get Started

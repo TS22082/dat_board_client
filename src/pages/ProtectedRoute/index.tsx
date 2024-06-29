@@ -18,7 +18,7 @@ const ProtectedRoute: React.FC<ProtectedRoute> = ({ children }) => {
       try {
         const tokenResponse = await fetch("/api/verify_jwt", {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: accessToken,
           },
         });
 
@@ -31,7 +31,7 @@ const ProtectedRoute: React.FC<ProtectedRoute> = ({ children }) => {
 
         const userReponse = await fetch("/api/user", {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: accessToken,
           },
         });
 
