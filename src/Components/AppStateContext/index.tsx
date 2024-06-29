@@ -1,21 +1,15 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext, ReactNode } from "react";
 import useAppState from "../../hooks/useAppState";
-
-// Define the shape of your state
-type StateType = {
-  user: any;
-};
-
-// Define the shape of your actions
-type ActionType = {
-  type: string;
-  payload: any;
-};
 
 // Define the shape of your context
 type AppStateContextType = {
-  state: StateType;
-  dispatch: React.Dispatch<ActionType>;
+  state: {
+    user: any;
+  };
+  dispatch: React.Dispatch<{
+    type: "LOGIN" | "LOGOUT";
+    payload?: any;
+  }>;
 };
 
 // Create a context for your app state
@@ -24,16 +18,18 @@ const AppStateContext = createContext<AppStateContextType | undefined>(
 );
 
 // Create a custom hook that uses the context
-export const useAppContext = () => {
+export const useAppStateContext = () => {
   const context = useContext(AppStateContext);
   if (!context) {
-    throw new Error("useAppContext must be used within a AppStateProvider");
+    throw new Error(
+      "useAppStateContext must be used within an AppStateProvider"
+    );
   }
   return context;
 };
 
 type AppStateProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 // Create a provider component that uses your useAppState hook

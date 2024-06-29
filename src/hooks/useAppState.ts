@@ -1,32 +1,31 @@
 import { useReducer } from "react";
 
+type StateType = {
+  user: any;
+};
+
+type ActionType = {
+  type: "LOGIN" | "LOGOUT";
+  payload?: any;
+};
+
+const initialState: StateType = {
+  user: null,
+};
+
+const appStateReducer = (state: StateType, action: ActionType): StateType => {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, user: action.payload };
+    case "LOGOUT":
+      return { ...state, user: null };
+    default:
+      return state;
+  }
+};
+
 const useAppState = () => {
-  const initialState = {
-    user: null,
-  };
-
-  type StateType = {
-    user: any;
-  };
-
-  type ActionType = {
-    type: string;
-    payload: any;
-  };
-
-  const appStateReducer = (state: StateType, action: ActionType) => {
-    switch (action.type) {
-      case "LOGIN":
-        return { ...state, user: action.payload };
-      case "LOGOUT":
-        return { ...state, user: null };
-      default:
-        return state;
-    }
-  };
-
   const [state, dispatch] = useReducer(appStateReducer, initialState);
-
   return { state, dispatch };
 };
 

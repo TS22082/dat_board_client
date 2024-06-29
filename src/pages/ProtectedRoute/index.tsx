@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppStateContext } from "../../Components/AppStateContext";
 
-type ProtectedRoute = {
+type ProtectedRouteProps = {
   children: React.ReactNode;
 };
 
-const ProtectedRoute: React.FC<ProtectedRoute> = ({ children }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const navigate = useNavigate();
   const [confirmed, setConfirmed] = useState(false);
+  const { dispatch } = useAppStateContext();
 
   useEffect(() => {
     (async () => {
       const accessToken = localStorage.getItem("accessToken");
 
-      if (!accessToken) return;
+      if (!accessToken) {
+        navigate("/");
+        return;
+      }
 
       try {
         const tokenResponse = await fetch("/api/verify_jwt", {
@@ -26,24 +31,37 @@ const ProtectedRoute: React.FC<ProtectedRoute> = ({ children }) => {
 
         if (data.error) {
           localStorage.removeItem("accessToken");
-          navigate("/auth");
+          navigate("/");
+          return;
         }
 
-        const userReponse = await fetch("/api/user", {
+        const userResponse = await fetch("/api/user", {
           headers: {
             Authorization: accessToken,
           },
         });
 
-        const userData = await userReponse.json();
-        console.log("User data ==>", userData);
+        const responseData = await userResponse.json();
+
+        if (responseData.error) {
+          navigate("/");
+          return;
+        }
+
+        const { user } = responseData;
+
+        dispatch({
+          type: "LOGIN",
+          payload: user,
+        });
 
         setConfirmed(true);
       } catch (err) {
         console.log("There was an error ==>", err);
       }
     })();
-  }, []);
+  }, [navigate, dispatch]);
+
   return confirmed ? children : null;
 };
 
