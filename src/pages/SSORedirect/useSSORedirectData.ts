@@ -18,7 +18,7 @@ const useSSORedirectData = () => {
 
         const accessToken = data.access_token;
         localStorage.setItem("accessToken", accessToken);
-        navigate("/");
+        navigate("/home");
       } catch (err) {
         console.log("There was an error ==>", err);
       }

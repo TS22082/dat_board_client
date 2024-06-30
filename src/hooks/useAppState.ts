@@ -18,6 +18,7 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
     case "LOGIN":
       return { ...state, user: action.payload };
     case "LOGOUT":
+      localStorage.clear();
       return { ...state, user: null };
     default:
       return state;

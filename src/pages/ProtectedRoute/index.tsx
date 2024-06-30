@@ -41,14 +41,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           },
         });
 
-        const responseData = await userResponse.json();
+        const userResponseData = await userResponse.json();
 
-        if (responseData.error) {
+        if (userResponseData.error) {
+          localStorage.removeItem("accessToken");
           navigate("/");
           return;
         }
 
-        const { user } = responseData;
+        const { user } = userResponseData;
 
         dispatch({
           type: "LOGIN",
@@ -57,6 +58,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
         setConfirmed(true);
       } catch (err) {
+        localStorage.removeItem("accessToken");
+        navigate("/");
         console.log("There was an error ==>", err);
       }
     })();
