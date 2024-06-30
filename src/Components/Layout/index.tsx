@@ -14,7 +14,7 @@ import {
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ChevronLeft, Logout } from "@mui/icons-material";
-import { useAppStateContext } from "..";
+import { useAppStateContext } from "../AppStateContext";
 import { useNavigate } from "react-router-dom";
 
 type LayoutProps = {

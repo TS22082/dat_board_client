@@ -1,18 +1,38 @@
-import React, { createContext, useContext, ReactNode } from "react";
-import useAppState from "../../hooks/useAppState";
+import React, { createContext, useContext, ReactNode, useReducer } from "react";
 
-// Define the shape of your context
-type AppStateContextType = {
-  state: {
-    user: any;
-  };
-  dispatch: React.Dispatch<{
-    type: "LOGIN" | "LOGOUT";
-    payload?: any;
-  }>;
+// Define the shape of your context state
+type StateType = {
+  user: any;
+};
+
+type ActionType = {
+  type: "LOGIN" | "LOGOUT";
+  payload?: any;
+};
+
+const initialState: StateType = {
+  user: null,
+};
+
+// Define the reducer function
+const appStateReducer = (state: StateType, action: ActionType): StateType => {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, user: action.payload };
+    case "LOGOUT":
+      localStorage.clear();
+      return { ...state, user: null };
+    default:
+      return state;
+  }
 };
 
 // Create a context for your app state
+type AppStateContextType = {
+  state: StateType;
+  dispatch: React.Dispatch<ActionType>;
+};
+
 const AppStateContext = createContext<AppStateContextType | undefined>(
   undefined
 );
@@ -32,9 +52,9 @@ type AppStateProviderProps = {
   children: ReactNode;
 };
 
-// Create a provider component that uses your useAppState hook
+// Create a provider component that uses the useReducer hook
 const AppStateProvider = ({ children }: AppStateProviderProps) => {
-  const { state, dispatch } = useAppState();
+  const [state, dispatch] = useReducer(appStateReducer, initialState);
 
   return (
     <AppStateContext.Provider value={{ state, dispatch }}>

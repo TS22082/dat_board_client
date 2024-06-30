@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import SSORedirect from "../pages/SSORedirect";
-import Layout from "../Components/AppStateContext/Layout";
+import Layout from "../Components/Layout";
 
 type Route = {
   path: string;
