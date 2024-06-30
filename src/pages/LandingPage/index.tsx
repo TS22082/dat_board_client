@@ -8,6 +8,7 @@ import {
   AppBar,
   Toolbar,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const LandingPage = () => {
         const data = await response.json();
         if (!data.error) navigate("/home");
       } catch (err) {
-        console.log("There was an error ==>", err);
+        toast("There was an error verifying this identity");
       }
     })();
   }, []);

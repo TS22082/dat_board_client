@@ -60,7 +60,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       } catch (err) {
         localStorage.removeItem("accessToken");
         navigate("/");
-        console.log("There was an error ==>", err);
       }
     })();
   }, [navigate, dispatch]);

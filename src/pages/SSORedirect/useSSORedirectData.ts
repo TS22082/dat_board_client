@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useSSORedirectData = () => {
   const queryParam = new URLSearchParams(window.location.search);
@@ -12,7 +13,7 @@ const useSSORedirectData = () => {
         const response = await fetch(`/api/github/gh_login?code=${code}`);
         const data = await response.json();
         if (data.error) {
-          console.log("Error ==>", data.error);
+          toast.error("There was an error");
           return;
         }
 
@@ -20,7 +21,7 @@ const useSSORedirectData = () => {
         localStorage.setItem("accessToken", accessToken);
         navigate("/home");
       } catch (err) {
-        console.log("There was an error ==>", err);
+        toast.error("There was a verifying this identity");
       }
     })();
   }, []);
