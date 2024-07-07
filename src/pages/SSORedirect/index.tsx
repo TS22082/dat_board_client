@@ -12,17 +12,21 @@ const SSORedirect = () => {
     (async () => {
       try {
         const response = await fetch(`/api/github/gh_login?code=${code}`);
-        const data = await response.json();
-        if (data.error) {
-          toast.error("There was an error");
-          return;
-        }
 
-        const accessToken = data.access_token;
-        localStorage.setItem("accessToken", accessToken);
-        navigate("/home");
+        if (response.status === 200) {
+          const data = await response.json();
+
+          if (!data?.token) {
+            toast.error("There was an error");
+            return;
+          }
+
+          const { token } = data;
+          localStorage.setItem("accessToken", token);
+          navigate("/home");
+        }
       } catch (err) {
-        toast("there was a problem");
+        console.log("this is the error ==>", err);
       }
     })();
   }, []);

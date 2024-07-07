@@ -12,6 +12,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { dispatch } = useAppStateContext();
 
   useEffect(() => {
+    console.log("Is this happening?");
+
     (async () => {
       const accessToken = localStorage.getItem("accessToken");
 
@@ -21,20 +23,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       }
 
       try {
-        const tokenResponse = await fetch("/api/verify_jwt", {
-          headers: {
-            Authorization: accessToken,
-          },
-        });
-
-        const data = await tokenResponse.json();
-
-        if (data.error) {
-          localStorage.removeItem("accessToken");
-          navigate("/");
-          return;
-        }
-
         const userResponse = await fetch("/api/user", {
           headers: {
             Authorization: accessToken,

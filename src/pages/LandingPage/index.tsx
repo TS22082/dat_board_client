@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -8,31 +7,9 @@ import {
   AppBar,
   Toolbar,
 } from "@mui/material";
-import { toast } from "react-toastify";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    (async () => {
-      const accessToken = localStorage.getItem("accessToken");
-
-      if (!accessToken) return;
-
-      try {
-        const response = await fetch("/api/verify_jwt", {
-          headers: {
-            Authorization: accessToken,
-          },
-        });
-
-        const data = await response.json();
-        if (!data.error) navigate("/home");
-      } catch (err) {
-        toast("There was an error verifying this identity");
-      }
-    })();
-  }, []);
 
   return (
     <div>
@@ -67,7 +44,7 @@ const LandingPage = () => {
             onClick={() => navigate("/auth")}
             sx={{ mt: 4 }}
           >
-            Get Started
+            Log in or Create an Account
           </Button>
         </Box>
       </Container>
