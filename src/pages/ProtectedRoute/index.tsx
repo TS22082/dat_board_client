@@ -12,8 +12,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { dispatch } = useAppStateContext();
 
   useEffect(() => {
-    console.log("Is this happening?");
-
     (async () => {
       const accessToken = localStorage.getItem("accessToken");
 

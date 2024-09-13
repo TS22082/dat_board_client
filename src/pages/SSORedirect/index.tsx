@@ -29,7 +29,8 @@ const SSORedirect = () => {
         console.log("this is the error ==>", err);
       }
     })();
-  }, []);
+  }, [code, navigate]);
+
   return (
     <Box
       sx={{

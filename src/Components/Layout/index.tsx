@@ -62,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     if (!state.user) navigate("/");
-  }, [state]);
+  }, [navigate, state]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -77,6 +77,37 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       type: "LOGOUT",
     });
   };
+
+  const navItems = [
+    {
+      text: "Dashboard",
+      path: "/home",
+      onClick: () => {
+        navigate("/home");
+      },
+    },
+    {
+      text: "Settings",
+      path: "/settings",
+      onClick: () => {
+        navigate("/settings");
+      },
+    },
+    {
+      text: "Profile",
+      path: "/profile",
+      onClick: () => {
+        navigate("/profile");
+      },
+    },
+    {
+      text: "Logout",
+      path: "/",
+      onClick: () => {
+        handleLogout();
+      },
+    },
+  ];
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -133,9 +164,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </IconButton>
         </DrawerHeader>
         <List>
-          {["Item 1", "Item 2", "Item 3"].map((text) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+          {navItems.map((item) => (
+            <ListItem key={item.text} style={{ cursor: "pointer" }}>
+              <ListItemText primary={item.text} onClick={item.onClick} />
             </ListItem>
           ))}
         </List>

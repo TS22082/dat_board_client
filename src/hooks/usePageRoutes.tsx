@@ -2,6 +2,8 @@ import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import SSORedirect from "../pages/SSORedirect";
 import Layout from "../Components/Layout";
+import Settings from "../pages/Settings";
+import Profile from "../pages/Profile";
 
 type Route = {
   path: string;
@@ -57,6 +59,30 @@ const usePageRoutes = () => {
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <SSORedirect />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/settings",
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <Settings />
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      ),
+    },
+    {
+      path: "/profile",
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <Profile />
+            </Layout>
+          </ProtectedRoute>
         </Suspense>
       ),
     },
