@@ -15,6 +15,11 @@ const Profile = () => {
     (async () => {
       try {
         const response = await fetch("/api/delay/1", { signal });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
         const data = await response.json();
         setResponse(data);
       } catch {
