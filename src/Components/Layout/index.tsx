@@ -102,6 +102,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       text: "Profile",
       path: "/profile",
     },
+    {
+      text: "Applets",
+      path: "/applets",
+    },
   ];
 
   const lightModeOptions: ThemeOptions = {

@@ -4,6 +4,7 @@ import SSORedirect from "../pages/SSORedirect";
 import Layout from "../Components/Layout";
 import Settings from "../pages/Settings";
 import Profile from "../pages/Profile";
+import { Typography } from "@mui/material";
 
 type Route = {
   path: string;
@@ -81,6 +82,18 @@ const usePageRoutes = () => {
           <ProtectedRoute>
             <Layout>
               <Profile />
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      ),
+    },
+    {
+      path: "/applets",
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <Typography variant="h6">Applets</Typography>
             </Layout>
           </ProtectedRoute>
         </Suspense>
