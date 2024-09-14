@@ -22,6 +22,8 @@ import { ChevronLeft, Logout } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAppStateContext } from "../../hooks/useAppStateContext";
 import { TOGGLE_THEME } from "../../sys/constants";
+import { BreadCrumb } from "../../sys/types";
+import useRadNavigation from "../../hooks/useRadNavigation";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -64,6 +66,7 @@ const DrawerHeader = styled("div")(() => ({
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
   const { user, theme, dispatch } = useAppStateContext();
+  const { breadcrumbs, handleNavigate } = useRadNavigation();
   const navigate = useNavigate();
 
   const path = window.location.pathname;
@@ -147,9 +150,41 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" noWrap>
-                Dat Dash
-              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                {breadcrumbs && breadcrumbs.length > 0 && (
+                  <>
+                    {breadcrumbs.map(
+                      (breadcrumb: BreadCrumb, index: number) => (
+                        <Typography
+                          key={index}
+                          variant="h6"
+                          noWrap
+                          onClick={() => handleNavigate(breadcrumb)}
+                          sx={{
+                            cursor: "pointer",
+                          }}
+                        >
+                          {breadcrumb.label}{" "}
+                          {index < breadcrumbs.length - 1 && "/"}
+                        </Typography>
+                      )
+                    )}
+                  </>
+                )}
+              </Box>
+
+              {breadcrumbs && breadcrumbs.length < 0 && (
+                <Typography variant="h6" noWrap>
+                  Dat Dash
+                </Typography>
+              )}
+
               <IconButton
                 onClick={handleLogout}
                 color="inherit"
@@ -188,7 +223,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <ListItemText
                   onClick={() => {
                     setRootPath(item.path);
-                    navigate(item.path);
+                    handleNavigate({ label: item.text, route: item.path });
                   }}
                   primary={item.text}
                   className={
