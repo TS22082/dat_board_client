@@ -163,6 +163,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       (breadcrumb: BreadCrumb, index: number) => (
                         <Typography
                           key={index}
+                          aria-label={breadcrumb.label}
                           variant="h6"
                           noWrap
                           onClick={() => handleNavigate(breadcrumb)}
