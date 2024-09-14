@@ -14,8 +14,8 @@ import {
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ChevronLeft, Logout } from "@mui/icons-material";
-import { useAppStateContext } from "../AppStateContext";
 import { useNavigate } from "react-router-dom";
+import { useAppStateContext } from "../../hooks/useAppStateContext";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -75,6 +75,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const handleLogout = () => {
     dispatch({
       type: "LOGOUT",
+      payload: null,
     });
   };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppStateContext } from "../../Components/AppStateContext";
+import { useAppStateContext } from "../../hooks/useAppStateContext";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
