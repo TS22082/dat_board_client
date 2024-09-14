@@ -19,7 +19,7 @@ import {
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ChevronLeft, Logout } from "@mui/icons-material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppStateContext } from "../../hooks/useAppStateContext";
 import { TOGGLE_THEME } from "../../sys/constants";
 
@@ -66,9 +66,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, theme, dispatch } = useAppStateContext();
   const navigate = useNavigate();
 
+  const path = window.location.pathname;
+  const rootRoute = path.split("/")[1];
+  const [rootPath, setRootPath] = React.useState<string>(`/${rootRoute}`);
+
   useEffect(() => {
     if (!user) navigate("/");
-  }, [navigate, user]);
+  }, [navigate, user, rootRoute, path]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -177,15 +181,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 sx={{ cursor: "pointer", margin: 0, padding: 0 }}
                 key={item.text}
               >
-                <NavLink
-                  to={item.path}
-                  style={{ width: "100%" }}
-                  className={({ isActive }) =>
-                    isActive ? "active_nav_item" : "inactive_nav_item"
+                <ListItemText
+                  onClick={() => {
+                    setRootPath(item.path);
+                    navigate(item.path);
+                  }}
+                  primary={item.text}
+                  className={
+                    item.path === rootPath
+                      ? "active_nav_item"
+                      : "inactive_nav_item"
                   }
-                >
-                  <ListItemText primary={item.text} />
-                </NavLink>
+                />
               </ListItem>
             ))}
             <Divider />
