@@ -16,8 +16,8 @@ import {
 
 const initialState: StateType = {
   user: null,
-  breadcrumbs: [],
-  theme: "light",
+  breadcrumbs: JSON.parse(localStorage.getItem("breadcrumbs") as string) || [],
+  theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
 };
 
 // Define the reducer function
@@ -29,11 +29,16 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
       localStorage.clear();
       return { ...state, user: null };
     case ADD_BREADCRUMB:
+      localStorage.setItem(
+        "breadcrumbs",
+        JSON.stringify([...state.breadcrumbs, action.payload as BreadCrumb])
+      );
       return {
         ...state,
         breadcrumbs: [...state.breadcrumbs, action.payload as BreadCrumb],
       };
     case TOGGLE_THEME:
+      localStorage.setItem("theme", state.theme === "light" ? "dark" : "light");
       return {
         ...state,
         theme: state.theme === "light" ? "dark" : "light",

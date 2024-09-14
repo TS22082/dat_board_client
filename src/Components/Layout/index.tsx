@@ -161,19 +161,28 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <>
                     {breadcrumbs.map(
                       (breadcrumb: BreadCrumb, index: number) => (
-                        <Typography
-                          key={index}
-                          aria-label={breadcrumb.label}
-                          variant="h6"
-                          noWrap
-                          onClick={() => handleNavigate(breadcrumb)}
-                          sx={{
-                            cursor: "pointer",
-                          }}
-                        >
-                          {breadcrumb.label}{" "}
+                        <>
+                          <Typography
+                            key={index}
+                            aria-label={breadcrumb.label}
+                            noWrap
+                            onClick={() => {
+                              setRootPath(breadcrumb.route);
+                              handleNavigate(breadcrumb);
+                            }}
+                            sx={{
+                              cursor: "pointer",
+                              textDecoration:
+                                `/${breadcrumb.route.split("/")[1]}` ===
+                                rootPath
+                                  ? "underline"
+                                  : "none",
+                            }}
+                          >
+                            {breadcrumb.label}{" "}
+                          </Typography>
                           {index < breadcrumbs.length - 1 && "/"}
-                        </Typography>
+                        </>
                       )
                     )}
                   </>
@@ -238,6 +247,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Divider />
             <ListItem sx={{ cursor: "pointer", margin: 0, padding: 0 }}>
               <Switch
+                checked={theme !== "light"}
                 onChange={() => dispatch({ type: TOGGLE_THEME, payload: null })}
               />
             </ListItem>
