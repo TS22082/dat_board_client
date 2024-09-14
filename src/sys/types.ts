@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
-import { ADD_BREADCRUMB, LOGIN, LOGOUT, REMOVE_BREADCRUMB } from "./constants";
+import {
+  ADD_BREADCRUMB,
+  LOGIN,
+  LOGOUT,
+  REMOVE_BREADCRUMB,
+  TOGGLE_THEME,
+} from "./constants";
 
 export type UserType = {
   Email: string;
@@ -14,6 +20,7 @@ export type BreadCrumb = {
 export type StateType = {
   user: UserType | null;
   breadcrumbs: BreadCrumb[];
+  theme: "light" | "dark";
 };
 
 export type ActionType = {
@@ -22,7 +29,8 @@ export type ActionType = {
     | typeof LOGOUT
     | typeof ADD_BREADCRUMB
     | typeof REMOVE_BREADCRUMB
-    | typeof REMOVE_BREADCRUMB;
+    | typeof REMOVE_BREADCRUMB
+    | typeof TOGGLE_THEME;
   payload: UserType | null | BreadCrumb;
 };
 
@@ -31,8 +39,13 @@ export type AppStateProviderProps = {
 };
 
 export type AppStateContextType = {
-  state: StateType;
   user: UserType | null;
   breadcrumbs: BreadCrumb[];
+  theme: "light" | "dark";
   dispatch: React.Dispatch<ActionType>;
+};
+
+export type NavArgsType = {
+  label: string;
+  route: string;
 };

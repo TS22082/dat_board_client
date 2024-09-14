@@ -3,14 +3,21 @@ import { AppStateContext } from "../../hooks/useAppStateContext";
 import {
   ActionType,
   AppStateProviderProps,
+  BreadCrumb,
   StateType,
   UserType,
 } from "../../sys/types";
-import { LOGIN, LOGOUT } from "../../sys/constants";
+import {
+  ADD_BREADCRUMB,
+  LOGIN,
+  LOGOUT,
+  TOGGLE_THEME,
+} from "../../sys/constants";
 
 const initialState: StateType = {
   user: null,
   breadcrumbs: [],
+  theme: "light",
 };
 
 // Define the reducer function
@@ -21,6 +28,16 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
     case LOGOUT:
       localStorage.clear();
       return { ...state, user: null };
+    case ADD_BREADCRUMB:
+      return {
+        ...state,
+        breadcrumbs: [...state.breadcrumbs, action.payload as BreadCrumb],
+      };
+    case TOGGLE_THEME:
+      return {
+        ...state,
+        theme: state.theme === "light" ? "dark" : "light",
+      };
     default:
       return state;
   }
@@ -33,7 +50,7 @@ const AppStateProvider = ({ children }: AppStateProviderProps) => {
   return (
     <AppStateContext.Provider
       value={{
-        state,
+        theme: state.theme,
         user: state.user,
         breadcrumbs: state.breadcrumbs,
         dispatch,

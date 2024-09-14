@@ -2,3 +2,21 @@ body {
   font-family: "exo 2", sans-serif;
   margin: 0;
 }
+
+a {
+  text-decoration: none;
+}
+
+.active_nav_item,
+.inactive_nav_item {
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.active_nav_item {
+  background-color: #eeeeee;
+  padding-left: 20px;
+}
+
+.inactive_nav_item {
+  padding-left: 10px;
+}
