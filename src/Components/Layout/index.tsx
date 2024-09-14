@@ -57,12 +57,12 @@ const DrawerHeader = styled("div")(() => ({
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
-  const { state, dispatch } = useAppStateContext();
+  const { user, dispatch } = useAppStateContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!state.user) navigate("/");
-  }, [navigate, state]);
+    if (!user) navigate("/");
+  }, [navigate, user]);
 
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -1,6 +1,12 @@
-import { ReactNode, useReducer } from "react";
+import { useReducer } from "react";
 import { AppStateContext } from "../../hooks/useAppStateContext";
-import { ActionType, StateType, UserType } from "../../types";
+import {
+  ActionType,
+  AppStateProviderProps,
+  StateType,
+  UserType,
+} from "../../sys/types";
+import { LOGIN, LOGOUT } from "../../sys/constants";
 
 const initialState: StateType = {
   user: null,
@@ -10,9 +16,9 @@ const initialState: StateType = {
 // Define the reducer function
 const appStateReducer = (state: StateType, action: ActionType): StateType => {
   switch (action.type) {
-    case "LOGIN":
+    case LOGIN:
       return { ...state, user: action.payload as UserType };
-    case "LOGOUT":
+    case LOGOUT:
       localStorage.clear();
       return { ...state, user: null };
     default:
@@ -20,16 +26,19 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
   }
 };
 
-type AppStateProviderProps = {
-  children: ReactNode;
-};
-
 // Create a provider component that uses the useReducer hook
 const AppStateProvider = ({ children }: AppStateProviderProps) => {
   const [state, dispatch] = useReducer(appStateReducer, initialState);
 
   return (
-    <AppStateContext.Provider value={{ state, dispatch }}>
+    <AppStateContext.Provider
+      value={{
+        state,
+        user: state.user,
+        breadcrumbs: state.breadcrumbs,
+        dispatch,
+      }}
+    >
       {children}
     </AppStateContext.Provider>
   );

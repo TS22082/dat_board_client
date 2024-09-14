@@ -1,10 +1,5 @@
-import React, { createContext, useContext } from "react";
-import { ActionType, StateType } from "../types";
-
-type AppStateContextType = {
-  state: StateType;
-  dispatch: React.Dispatch<ActionType>;
-};
+import { createContext, useContext } from "react";
+import { AppStateContextType } from "../sys/types";
 
 export const AppStateContext = createContext<AppStateContextType | undefined>(
   undefined
