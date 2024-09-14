@@ -1,12 +1,12 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useRadNavigation from "../../hooks/useRadNavigation";
 
 const SSORedirect = () => {
   const queryParam = new URLSearchParams(window.location.search);
   const code = queryParam.get("code");
-  const navigate = useNavigate();
+  const { handleNavigate } = useRadNavigation();
 
   useEffect(() => {
     (async () => {
@@ -26,12 +26,13 @@ const SSORedirect = () => {
 
         const { token } = data;
         localStorage.setItem("accessToken", token);
-        navigate("/home");
+
+        handleNavigate({ label: "Dashboard", route: "/home" });
       } catch (err) {
         console.log("this is the error ==>", err);
       }
     })();
-  }, [code, navigate]);
+  }, [code, handleNavigate]);
 
   return (
     <Box
