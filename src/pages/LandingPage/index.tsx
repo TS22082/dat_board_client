@@ -7,9 +7,36 @@ import {
   AppBar,
   Toolbar,
 } from "@mui/material";
+import { useEffect } from "react";
+import useRadNavigation from "../../hooks/useRadNavigation";
 
 const LandingPage = () => {
+  const { handleNavigate } = useRadNavigation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) return;
+
+      const userResponse = await fetch("/api/user", {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      if (!userResponse.ok) {
+        localStorage.removeItem("accessToken");
+        return;
+      }
+      const user = await userResponse.json();
+      if (!user) {
+        localStorage.removeItem("accessToken");
+        return;
+      }
+
+      handleNavigate({ label: "Dashboard", route: "/home" });
+    })();
+  }, [handleNavigate]);
 
   return (
     <div>
