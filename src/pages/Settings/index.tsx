@@ -1,7 +1,23 @@
-import { Typography } from "@mui/material";
+import { Box, Switch, Typography } from "@mui/material";
+import { useAppStateContext } from "../../hooks/useAppStateContext";
+import { TOGGLE_THEME } from "../../sys/constants";
 
 const Settings = () => {
-  return <Typography variant="h6">Settings</Typography>;
+  const { theme, dispatch } = useAppStateContext();
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Typography>Light / Dark mode</Typography>
+      <Switch
+        checked={theme !== "light"}
+        onChange={() => dispatch({ type: TOGGLE_THEME, payload: null })}
+      />
+    </Box>
+  );
 };
 
 export default Settings;

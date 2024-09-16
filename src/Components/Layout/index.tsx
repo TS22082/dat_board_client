@@ -13,17 +13,24 @@ import {
   ThemeProvider,
   ThemeOptions,
   createTheme,
-  Switch,
   Divider,
+  Button,
+  Modal,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ChevronLeft, Logout } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAppStateContext } from "../../hooks/useAppStateContext";
-import { TOGGLE_THEME } from "../../sys/constants";
 import { BreadCrumb } from "../../sys/types";
 import useRadNavigation from "../../hooks/useRadNavigation";
+import ModalContent from "../ModalContent";
+import {
+  CLOSE_MODAL,
+  CREATE_ITEM_MODAL,
+  LOGOUT,
+  OPEN_MODAL,
+} from "../../sys/constants";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -65,7 +72,7 @@ const DrawerHeader = styled("div")(() => ({
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
-  const { user, theme, dispatch } = useAppStateContext();
+  const { user, theme, modalData, dispatch } = useAppStateContext();
   const { breadcrumbs, handleNavigate } = useRadNavigation();
   const navigate = useNavigate();
 
@@ -74,7 +81,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [rootPath, setRootPath] = React.useState<string>(`/${rootRoute}`);
 
   useEffect(() => {
-    if (!user) navigate("/");
+    if (!user) {
+      navigate("/");
+    }
   }, [navigate, user, rootRoute, path]);
 
   const handleDrawerOpen = () => {
@@ -87,7 +96,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const handleLogout = () => {
     dispatch({
-      type: "LOGOUT",
+      type: LOGOUT,
       payload: null,
     });
   };
@@ -114,12 +123,40 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const lightModeOptions: ThemeOptions = {
     palette: {
       mode: "light",
+      primary: {
+        main: "#1976d2",
+      },
+      secondary: {
+        main: "#f50057",
+      },
+      background: {
+        default: "#ffffff",
+        paper: "#f5f5f5",
+      },
+      text: {
+        primary: "#333333",
+        secondary: "#555555",
+      },
     },
   };
 
   const darkModeOptions: ThemeOptions = {
     palette: {
       mode: "dark",
+      primary: {
+        main: "#90caf9",
+      },
+      secondary: {
+        main: "#ff4081",
+      },
+      background: {
+        default: "#121212",
+        paper: "#424242",
+      },
+      text: {
+        primary: "#ffffff",
+        secondary: "#bbbbbb",
+      },
     },
   };
 
@@ -129,6 +166,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <ThemeProvider theme={selectedTheme}>
+      <Modal
+        open={modalData !== null}
+        onClose={() => dispatch({ type: CLOSE_MODAL, payload: null })}
+        aria-labelledby="modal"
+        aria-describedby="modal"
+      >
+        <ModalContent />
+      </Modal>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBarStyled position="fixed" open={open}>
@@ -195,14 +240,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </Typography>
               )}
 
-              <IconButton
-                onClick={handleLogout}
-                color="inherit"
-                aria-label="logout"
-                edge="end"
-              >
-                <Logout />
-              </IconButton>
+              {rootPath === "/home" && (
+                <Button
+                  onClick={() =>
+                    dispatch({
+                      type: OPEN_MODAL,
+                      payload: { type: CREATE_ITEM_MODAL },
+                    })
+                  }
+                  color="inherit"
+                  variant="outlined"
+                >
+                  New
+                </Button>
+              )}
             </Box>
           </Toolbar>
         </AppBarStyled>
@@ -246,9 +297,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             ))}
             <Divider />
             <ListItem sx={{ cursor: "pointer", margin: 0, padding: 0 }}>
-              <Switch
-                checked={theme !== "light"}
-                onChange={() => dispatch({ type: TOGGLE_THEME, payload: null })}
+              <ListItemText
+                sx={{
+                  paddingLeft: "10px",
+                }}
+                onClick={() => {
+                  handleLogout();
+                }}
+                primary="Logout"
               />
             </ListItem>
           </List>

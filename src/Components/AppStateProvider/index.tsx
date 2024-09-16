@@ -4,13 +4,16 @@ import {
   ActionType,
   AppStateProviderProps,
   BreadCrumb,
+  ModalDataType,
   StateType,
   UserType,
 } from "../../sys/types";
 import {
   ADD_BREADCRUMB,
+  CLOSE_MODAL,
   LOGIN,
   LOGOUT,
+  OPEN_MODAL,
   TOGGLE_THEME,
 } from "../../sys/constants";
 
@@ -18,6 +21,7 @@ const initialState: StateType = {
   user: null,
   breadcrumbs: JSON.parse(localStorage.getItem("breadcrumbs") as string) || [],
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
+  modalData: null,
 };
 
 // Define the reducer function
@@ -43,6 +47,12 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
         ...state,
         theme: state.theme === "light" ? "dark" : "light",
       };
+    case CLOSE_MODAL: {
+      return { ...state, modalData: null };
+    }
+    case OPEN_MODAL: {
+      return { ...state, modalData: action.payload as ModalDataType };
+    }
     default:
       return state;
   }
@@ -58,6 +68,7 @@ const AppStateProvider = ({ children }: AppStateProviderProps) => {
         theme: state.theme,
         user: state.user,
         breadcrumbs: state.breadcrumbs,
+        modalData: state.modalData,
         dispatch,
       }}
     >
