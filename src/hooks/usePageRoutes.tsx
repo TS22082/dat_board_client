@@ -35,18 +35,7 @@ const usePageRoutes = () => {
         </Suspense>
       ),
     },
-    {
-      path: "/home",
-      element: (
-        <Suspense fallback={<div>Loading...</div>}>
-          <ProtectedRoute>
-            <Layout>
-              <Dashboard />
-            </Layout>
-          </ProtectedRoute>
-        </Suspense>
-      ),
-    },
+
     {
       path: "/auth/gh-callback",
       element: (
@@ -60,6 +49,18 @@ const usePageRoutes = () => {
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <SSORedirect />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/home",
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <Dashboard />
+            </Layout>
+          </ProtectedRoute>
         </Suspense>
       ),
     },

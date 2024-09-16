@@ -131,7 +131,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       },
       background: {
         default: "#ffffff",
-        paper: "#f5f5f5",
+        paper: "#ffffff",
       },
       text: {
         primary: "#333333",
