@@ -166,6 +166,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <ThemeProvider theme={selectedTheme}>
+      <CssBaseline />
       <Modal
         open={modalData !== null}
         onClose={() => dispatch({ type: CLOSE_MODAL, payload: null })}
@@ -175,7 +176,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <ModalContent />
       </Modal>
       <Box sx={{ display: "flex" }}>
-        <CssBaseline />
         <AppBarStyled position="fixed" open={open}>
           <Toolbar>
             <IconButton
