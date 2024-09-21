@@ -3,17 +3,60 @@ import {
   Button,
   ButtonGroup,
   FormControl,
+  Switch,
   TextField,
+  Typography,
 } from "@mui/material";
 import { Form } from "react-router-dom";
 import { useState } from "react";
 
 const CreateThingModal = () => {
-  const [title, setTitle] = useState("");
+  const [form, setForm] = useState({
+    title: "",
+    parentId: null,
+    isPublic: false,
+  });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Form submitted:", { title, parentId: null, isPublic: false });
+    console.log("Form submitted:", form);
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      console.error("No access token found");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/item", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json();
+
+      console.log("this is the data ==>", data);
+    } catch (err) {
+      console.error("this is the error ==>", err);
+    }
+  };
+
+  const togglePublic = () => {
+    setForm({
+      ...form,
+      isPublic: !form.isPublic,
+    });
   };
 
   return (
@@ -27,21 +70,45 @@ const CreateThingModal = () => {
         margin: "0 auto",
       }}
     >
+      <Typography variant="h6">Create new item</Typography>
       <Form onSubmit={handleSubmit}>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <TextField
             type="text"
             id="title"
-            value={title}
+            value={form.title}
             label="Title"
             variant="outlined"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleTextChange}
           />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Switch
+              id="isPublic"
+              checked={form.isPublic}
+              onChange={togglePublic}
+            />
+            <Typography variant="body2">
+              {form.isPublic ? "Public" : "Private"}
+            </Typography>
+          </Box>
         </FormControl>
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "end" }}>
-          <ButtonGroup variant="contained" aria-label="outlined button group">
-            <Button color="primary">Cancel</Button>
-            <Button color="primary" type="submit">
+        <Box>
+          <ButtonGroup
+            sx={{ width: "100%" }}
+            variant="contained"
+            aria-label="outlined button group"
+          >
+            <Button sx={{ width: "100%" }} color="primary">
+              Cancel
+            </Button>
+            <Button sx={{ width: "100%" }} color="primary" type="submit">
               Submit
             </Button>
           </ButtonGroup>
