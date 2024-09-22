@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import { Form } from "react-router-dom";
 import { useState } from "react";
+import { useAppStateContext } from "../../../hooks/useAppStateContext";
+import { CLOSE_MODAL } from "../../../sys/constants";
 
 const CreateThingModal = () => {
   const [form, setForm] = useState({
@@ -16,6 +18,8 @@ const CreateThingModal = () => {
     parentId: null,
     isPublic: false,
   });
+
+  const { dispatch } = useAppStateContext();
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -44,9 +48,19 @@ const CreateThingModal = () => {
         },
         body: JSON.stringify(form),
       });
-      const data = await response.json();
 
-      console.log("this is the data ==>", data);
+      if (!response.ok) {
+        console.error("Error creating item:", response.statusText);
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Item created:", data);
+
+      dispatch({
+        type: CLOSE_MODAL,
+        payload: null,
+      });
     } catch (err) {
       console.error("this is the error ==>", err);
     }

@@ -245,7 +245,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   onClick={() =>
                     dispatch({
                       type: OPEN_MODAL,
-                      payload: { type: CREATE_ITEM_MODAL },
+                      payload: { type: CREATE_ITEM_MODAL, data: null },
                     })
                   }
                   color="inherit"

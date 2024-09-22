@@ -19,8 +19,14 @@ export type BreadCrumb = {
   route: string;
 };
 
+export type DeleteItemModalData = {
+  id: string;
+  title: string;
+};
+
 export type ModalDataType = {
   type: string;
+  data: DeleteItemModalData | null | undefined;
 };
 
 export type StateType = {
@@ -58,4 +64,11 @@ export type AppStateContextType = {
 export type NavArgsType = {
   label: string;
   route: string;
+};
+
+export type ItemType = {
+  id: string;
+  title: string;
+  parentId: string;
+  isPublic: boolean;
 };

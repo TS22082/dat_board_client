@@ -1,9 +1,10 @@
 import { Box } from "@mui/material";
 import { useAppStateContext } from "../../hooks/useAppStateContext";
 import { lazy, Suspense } from "react";
-import { CREATE_ITEM_MODAL } from "../../sys/constants";
+import { CREATE_ITEM_MODAL, DELETE_ITEM_MODAL } from "../../sys/constants";
 
 const CreateThingModal = lazy(() => import("./CreateItemModal"));
+const DeleteItemModal = lazy(() => import("./DeleteItemModal"));
 
 const style = {
   position: "absolute",
@@ -23,6 +24,7 @@ const ModalContent = () => {
 
   const content = {
     [CREATE_ITEM_MODAL]: CreateThingModal,
+    [DELETE_ITEM_MODAL]: DeleteItemModal,
   };
 
   const ModalContent = content[modalData.type as keyof typeof content] || null;

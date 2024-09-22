@@ -27,6 +27,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           },
         });
 
+        if (!userResponse.ok) {
+          localStorage.removeItem("accessToken");
+          navigate("/");
+          return;
+        }
+
         const userResponseData = await userResponse.json();
 
         if (userResponseData.error) {
