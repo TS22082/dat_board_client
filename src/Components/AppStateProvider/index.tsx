@@ -4,16 +4,20 @@ import {
   ActionType,
   AppStateProviderProps,
   BreadCrumb,
+  ItemType,
   ModalDataType,
   StateType,
   UserType,
 } from "../../sys/types";
 import {
   ADD_BREADCRUMB,
+  ADD_ITEM,
   CLOSE_MODAL,
+  DELETE_ITEM_BY_ID,
   LOGIN,
   LOGOUT,
   OPEN_MODAL,
+  SET_ITEMS,
   TOGGLE_THEME,
 } from "../../sys/constants";
 
@@ -21,6 +25,7 @@ const initialState: StateType = {
   user: null,
   breadcrumbs: JSON.parse(localStorage.getItem("breadcrumbs") as string) || [],
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
+  items: [],
   modalData: null,
 };
 
@@ -53,6 +58,18 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
     case OPEN_MODAL: {
       return { ...state, modalData: action.payload as ModalDataType };
     }
+    case SET_ITEMS: {
+      return { ...state, items: action.payload as ItemType[] };
+    }
+    case DELETE_ITEM_BY_ID: {
+      return {
+        ...state,
+        items: state.items.filter((item) => item.id !== action.payload),
+      };
+    }
+    case ADD_ITEM: {
+      return { ...state, items: [...state.items, action.payload as ItemType] };
+    }
     default:
       return state;
   }
@@ -69,6 +86,7 @@ const AppStateProvider = ({ children }: AppStateProviderProps) => {
         user: state.user,
         breadcrumbs: state.breadcrumbs,
         modalData: state.modalData,
+        items: state.items,
         dispatch,
       }}
     >

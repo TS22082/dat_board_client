@@ -1,11 +1,14 @@
 import { ReactNode } from "react";
 import {
   ADD_BREADCRUMB,
+  ADD_ITEM,
   CLOSE_MODAL,
+  DELETE_ITEM_BY_ID,
   LOGIN,
   LOGOUT,
   OPEN_MODAL,
   REMOVE_BREADCRUMB,
+  SET_ITEMS,
   TOGGLE_THEME,
 } from "./constants";
 
@@ -34,6 +37,7 @@ export type StateType = {
   breadcrumbs: BreadCrumb[];
   theme: "light" | "dark";
   modalData: ModalDataType | null;
+  items: ItemType[];
 };
 
 export type ActionType = {
@@ -45,8 +49,18 @@ export type ActionType = {
     | typeof REMOVE_BREADCRUMB
     | typeof TOGGLE_THEME
     | typeof CLOSE_MODAL
-    | typeof OPEN_MODAL;
-  payload: null | UserType | BreadCrumb | ModalDataType;
+    | typeof OPEN_MODAL
+    | typeof SET_ITEMS
+    | typeof DELETE_ITEM_BY_ID
+    | typeof ADD_ITEM;
+  payload:
+    | null
+    | UserType
+    | BreadCrumb
+    | ModalDataType
+    | ItemType[]
+    | string
+    | ItemType;
 };
 
 export type AppStateProviderProps = {
@@ -58,6 +72,7 @@ export type AppStateContextType = {
   breadcrumbs: BreadCrumb[];
   theme: "light" | "dark";
   modalData: ModalDataType | null;
+  items: ItemType[];
   dispatch: React.Dispatch<ActionType>;
 };
 

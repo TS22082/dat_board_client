@@ -65,6 +65,18 @@ const usePageRoutes = () => {
       ),
     },
     {
+      path: "/item/:id",
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <Typography variant="h6">Item Route</Typography>
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      ),
+    },
+    {
       path: "/settings",
       element: (
         <Suspense fallback={<div>Loading...</div>}>

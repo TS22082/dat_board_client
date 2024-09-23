@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { useAppStateContext } from "../../../hooks/useAppStateContext";
-import { CLOSE_MODAL } from "../../../sys/constants";
+import { CLOSE_MODAL, DELETE_ITEM_BY_ID } from "../../../sys/constants";
 
 const DeleteItemModal = () => {
   const { modalData, dispatch } = useAppStateContext();
@@ -13,29 +13,42 @@ const DeleteItemModal = () => {
 
       if (!authorizationToken) return;
 
-      const response = await fetch(`/api/item/${modalData.data.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("accessToken") || "",
-        },
-      });
+      try {
+        const response = await fetch(`/api/item/${modalData.data.id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("accessToken") || "",
+          },
+        });
 
-      if (!response.ok) {
-        console.error("Error deleting item:", response.statusText);
-        return;
+        if (!response.ok) {
+          console.error("Error deleting item:", response.statusText);
+          return;
+        }
+
+        dispatch({
+          type: DELETE_ITEM_BY_ID,
+          payload: modalData.data.id,
+        });
+
+        dispatch({
+          type: CLOSE_MODAL,
+          payload: null,
+        });
+      } catch (error) {
+        console.error("Error deleting item:", error);
       }
-
-      const data = await response.json();
-      console.log("Item deleted:", data);
-
-      dispatch({
-        type: CLOSE_MODAL,
-        payload: null,
-      });
     } catch (error) {
       console.error("Error deleting item:", error);
     }
+  };
+
+  const cancelDelete = () => {
+    dispatch({
+      type: CLOSE_MODAL,
+      payload: null,
+    });
   };
 
   return (
@@ -57,7 +70,9 @@ const DeleteItemModal = () => {
         variant="contained"
         aria-label="outlined button group"
       >
-        <Button sx={{ width: "100%" }}>Cancel</Button>
+        <Button sx={{ width: "100%" }} onClick={cancelDelete}>
+          Cancel
+        </Button>
         <Button sx={{ width: "100%" }} onClick={deleteItemById}>
           Delete
         </Button>

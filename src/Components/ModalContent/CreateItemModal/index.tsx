@@ -10,7 +10,7 @@ import {
 import { Form } from "react-router-dom";
 import { useState } from "react";
 import { useAppStateContext } from "../../../hooks/useAppStateContext";
-import { CLOSE_MODAL } from "../../../sys/constants";
+import { ADD_ITEM, CLOSE_MODAL } from "../../../sys/constants";
 
 const CreateThingModal = () => {
   const [form, setForm] = useState({
@@ -58,12 +58,24 @@ const CreateThingModal = () => {
       console.log("Item created:", data);
 
       dispatch({
+        type: ADD_ITEM,
+        payload: data.message,
+      });
+
+      dispatch({
         type: CLOSE_MODAL,
         payload: null,
       });
     } catch (err) {
       console.error("this is the error ==>", err);
     }
+  };
+
+  const cancelCreate = () => {
+    dispatch({
+      type: CLOSE_MODAL,
+      payload: null,
+    });
   };
 
   const togglePublic = () => {
@@ -119,10 +131,19 @@ const CreateThingModal = () => {
             variant="contained"
             aria-label="outlined button group"
           >
-            <Button sx={{ width: "100%" }} color="primary">
+            <Button
+              onClick={cancelCreate}
+              sx={{ width: "100%" }}
+              color="primary"
+            >
               Cancel
             </Button>
-            <Button sx={{ width: "100%" }} color="primary" type="submit">
+            <Button
+              disabled={!form.title}
+              sx={{ width: "100%" }}
+              color="primary"
+              type="submit"
+            >
               Submit
             </Button>
           </ButtonGroup>

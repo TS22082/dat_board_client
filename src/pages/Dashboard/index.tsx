@@ -1,19 +1,23 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ItemType } from "../../sys/types";
 import { DeleteOutline, DoubleArrowOutlined } from "@mui/icons-material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useAppStateContext } from "../../hooks/useAppStateContext";
-import { DELETE_ITEM_MODAL, OPEN_MODAL } from "../../sys/constants";
+import { DELETE_ITEM_MODAL, OPEN_MODAL, SET_ITEMS } from "../../sys/constants";
+import useRadNavigation from "../../hooks/useRadNavigation";
 
 const Dashboard = () => {
-  const { dispatch } = useAppStateContext();
-  const [items, setItems] = useState([]);
+  const { items, dispatch } = useAppStateContext();
+  const { handleNavigate } = useRadNavigation();
 
   const handleDelete = (id: string, title: string) => {
     dispatch({
       type: OPEN_MODAL,
-      payload: { type: DELETE_ITEM_MODAL, data: { id, title } },
+      payload: {
+        type: DELETE_ITEM_MODAL,
+        data: { id, title },
+      },
     });
   };
 
@@ -38,12 +42,16 @@ const Dashboard = () => {
         }
 
         const data = await response.json();
-        setItems(data);
+
+        dispatch({
+          type: SET_ITEMS,
+          payload: data,
+        });
       } catch (err) {
         console.error("error ==>", err);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid2 container spacing={2}>
@@ -78,7 +86,14 @@ const Dashboard = () => {
                 <DeleteOutline />
               </Button>
               <Button color="primary" fullWidth>
-                <DoubleArrowOutlined />
+                <DoubleArrowOutlined
+                  onClick={() => {
+                    handleNavigate({
+                      label: item.title,
+                      route: `/item/${item.id}`,
+                    });
+                  }}
+                />
               </Button>
             </Box>
           </Card>
