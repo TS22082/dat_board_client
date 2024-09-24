@@ -5,6 +5,7 @@ import Layout from "../Components/Layout";
 import Settings from "../pages/Settings";
 import Profile from "../pages/Profile";
 import { Typography } from "@mui/material";
+import Item from "../pages/Item";
 
 type Route = {
   path: string;
@@ -70,7 +71,7 @@ const usePageRoutes = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <ProtectedRoute>
             <Layout>
-              <Typography variant="h6">Item Route</Typography>
+              <Item />
             </Layout>
           </ProtectedRoute>
         </Suspense>
