@@ -8,6 +8,7 @@ import {
   LOGOUT,
   OPEN_MODAL,
   REMOVE_BREADCRUMB,
+  RESET_ITEMS,
   SET_ITEMS,
   TOGGLE_THEME,
 } from "./constants";
@@ -52,7 +53,8 @@ export type ActionType = {
     | typeof OPEN_MODAL
     | typeof SET_ITEMS
     | typeof DELETE_ITEM_BY_ID
-    | typeof ADD_ITEM;
+    | typeof ADD_ITEM
+    | typeof RESET_ITEMS;
   payload:
     | null
     | UserType

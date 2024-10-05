@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { ItemType } from "../../sys/types";
 import { useParams } from "react-router-dom";
+import { useAppStateContext } from "../../hooks/useAppStateContext";
+import { SET_ITEMS } from "../../sys/constants";
 
 const useItemData = () => {
   const params = useParams();
@@ -12,8 +14,10 @@ const useItemData = () => {
   });
   const [itemLoading, setItemLoading] = useState(true);
 
-  const [items, setItems] = useState<ItemType[]>([]);
+  // const [items, setItems] = useState<ItemType[]>([]);
   const [itemsLoading, setItemsLoading] = useState(true);
+
+  const { items, dispatch } = useAppStateContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -78,19 +82,19 @@ const useItemData = () => {
 
         const data = await response.json();
 
-        if (!data) {
-          setItems([]);
-          return;
+        if (data) {
+          dispatch({
+            type: SET_ITEMS,
+            payload: data,
+          });
         }
-
-        if (data) setItems(data);
       } catch (error) {
         console.error("error", error);
       } finally {
         setItemsLoading(false);
       }
     })();
-  }, [params.id]);
+  }, [dispatch, params.id]);
 
   return {
     item,

@@ -17,6 +17,7 @@ import {
   LOGIN,
   LOGOUT,
   OPEN_MODAL,
+  RESET_ITEMS,
   SET_ITEMS,
   TOGGLE_THEME,
 } from "../../sys/constants";
@@ -70,6 +71,8 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
     case ADD_ITEM: {
       return { ...state, items: [...state.items, action.payload as ItemType] };
     }
+    case RESET_ITEMS:
+      return { ...state, items: [] };
     default:
       return state;
   }

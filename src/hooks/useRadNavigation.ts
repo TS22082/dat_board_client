@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStateContext } from "./useAppStateContext";
-import { ADD_BREADCRUMB, REMOVE_BREADCRUMB } from "../sys/constants";
+import {
+  ADD_BREADCRUMB,
+  REMOVE_BREADCRUMB,
+  RESET_ITEMS,
+} from "../sys/constants";
 import { NavArgsType } from "../sys/types";
 
 const useRadNavigation = () => {
@@ -9,11 +13,14 @@ const useRadNavigation = () => {
 
   const handleNavigate = (navArgs: NavArgsType): void => {
     // check to see if the breadcrumb already exists in array
+    dispatch({ type: RESET_ITEMS, payload: null });
+
     if (breadcrumbs.some((crumb) => crumb.label === navArgs.label)) {
       return navigate(navArgs.route);
     }
 
     dispatch({ type: ADD_BREADCRUMB, payload: navArgs });
+
     return navigate(navArgs.route);
   };
 

@@ -10,3 +10,4 @@ export const DELETE_ITEM_MODAL = "DELETE_ITEM_MODAL";
 export const SET_ITEMS = "SET_ITEMS";
 export const DELETE_ITEM_BY_ID = "DELETE_ITEM_BY_ID";
 export const ADD_ITEM = "ADD_ITEM";
+export const RESET_ITEMS = "RESET_ITEMS";
