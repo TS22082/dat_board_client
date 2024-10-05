@@ -1,65 +1,28 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import useItemData from "./useItemData";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { ItemType } from "../../sys/types";
+import ItemCard from "../../Components/ItemCard";
 
 const Item = () => {
-  const params = useParams();
-  const [item, setItem] = useState<ItemType>({
-    id: "",
-    title: "",
-    parentId: "",
-    isPublic: false,
-  });
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    (async () => {
-      const authorizationToken = localStorage.getItem("accessToken") || "";
-      setLoading(true);
-
-      try {
-        if (!params.id) return;
-
-        const response = await fetch(`/api/item/${params.id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: authorizationToken,
-          },
-          signal,
-        });
-
-        if (!response.ok) {
-          console.error("Error fetching item:", response.statusText);
-          return;
-        }
-
-        const data = await response.json();
-
-        setItem(data);
-      } catch (error) {
-        console.log("error", error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-
-    return () => {
-      controller.abort();
-    };
-  }, [params]);
+  const { item, itemLoading, items, itemsLoading } = useItemData();
 
   return (
-    <Box>
-      <Typography variant="h1">
-        {loading ? "Loading..." : item.title}
-      </Typography>
-    </Box>
+    <>
+      <Box>
+        <Typography variant="h1">
+          {itemLoading ? "Loading..." : item.title}
+        </Typography>
+        <Typography variant="h1">{itemsLoading && "Loading..."}</Typography>
+        <Grid2 container spacing={2}>
+          {items.map((i: ItemType) => (
+            <Grid2 key={i.id} xs={12} sm={6} md={4}>
+              <ItemCard item={i} />
+            </Grid2>
+          ))}
+        </Grid2>
+      </Box>
+    </>
   );
 };
 

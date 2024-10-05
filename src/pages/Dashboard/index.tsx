@@ -1,25 +1,14 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { ItemType } from "../../sys/types";
-import { DeleteOutline, DoubleArrowOutlined } from "@mui/icons-material";
+
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useAppStateContext } from "../../hooks/useAppStateContext";
-import { DELETE_ITEM_MODAL, OPEN_MODAL, SET_ITEMS } from "../../sys/constants";
-import useRadNavigation from "../../hooks/useRadNavigation";
+
+import ItemCard from "../../Components/ItemCard";
+import { SET_ITEMS } from "../../sys/constants";
 
 const Dashboard = () => {
   const { items, dispatch } = useAppStateContext();
-  const { handleNavigate } = useRadNavigation();
-
-  const handleDelete = (id: string, title: string) => {
-    dispatch({
-      type: OPEN_MODAL,
-      payload: {
-        type: DELETE_ITEM_MODAL,
-        data: { id, title },
-      },
-    });
-  };
 
   useEffect(() => {
     (async () => {
@@ -57,46 +46,7 @@ const Dashboard = () => {
     <Grid2 container spacing={2}>
       {items.map((item: ItemType) => (
         <Grid2 key={item.id} xs={12} sm={6} md={4}>
-          <Card
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Typography>{item.title}</Typography>
-            </CardContent>
-            <Box
-              sx={{
-                width: 80,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Button
-                fullWidth
-                onClick={() => handleDelete(item.id, item.title)}
-                color="error"
-              >
-                <DeleteOutline />
-              </Button>
-              <Button color="primary" fullWidth>
-                <DoubleArrowOutlined
-                  onClick={() => {
-                    handleNavigate({
-                      label: item.title,
-                      route: `/item/${item.id}`,
-                    });
-                  }}
-                />
-              </Button>
-            </Box>
-          </Card>
+          <ItemCard item={item} />
         </Grid2>
       ))}
     </Grid2>

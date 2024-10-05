@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Form } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useAppStateContext } from "../../../hooks/useAppStateContext";
 import { ADD_ITEM, CLOSE_MODAL } from "../../../sys/constants";
@@ -15,11 +15,12 @@ import { ADD_ITEM, CLOSE_MODAL } from "../../../sys/constants";
 const CreateThingModal = () => {
   const [form, setForm] = useState({
     title: "",
-    parentId: null,
+    parentId: undefined || "",
     isPublic: false,
   });
 
   const { dispatch } = useAppStateContext();
+  const { id } = useParams();
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -31,6 +32,8 @@ const CreateThingModal = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Form submitted:", form);
+
+    const newItem = { ...form, parentId: id || "" };
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -46,7 +49,7 @@ const CreateThingModal = () => {
           "Content-Type": "application/json",
           Authorization: accessToken,
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(newItem),
       });
 
       if (!response.ok) {
@@ -55,7 +58,6 @@ const CreateThingModal = () => {
       }
 
       const data = await response.json();
-      console.log("Item created:", data);
 
       dispatch({
         type: ADD_ITEM,

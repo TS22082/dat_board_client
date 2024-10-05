@@ -87,3 +87,7 @@ export type ItemType = {
   parentId: string;
   isPublic: boolean;
 };
+
+export type ItemCardProps = {
+  item: ItemType;
+};
