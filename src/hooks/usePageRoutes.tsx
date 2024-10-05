@@ -12,6 +12,28 @@ type Route = {
   element: React.ReactNode;
 };
 
+/**
+ * usePageRoutes
+ *
+ * This hook generates a list of routes for the Dat-Dash app.
+ *
+ * It uses React.lazy to import the components only when needed,
+ * and React.Suspense to handle the loading state.
+ *
+ * The returned value is a list of routes that can be passed to
+ * React-Router's createBrowserRouter.
+ *
+ * The routes are:
+ * - /auth: The authentication page.
+ * - /: The landing page.
+ * - /auth/gh-callback: The GitHub callback page.
+ * - /auth/sso-redirect: The redirect page for the SSO flow.
+ * - /home: The dashboard page.
+ * - /item/:id: The item page.
+ * - /settings: The settings page.
+ * - /profile: The profile page.
+ * - /applets: The applets page.
+ */
 const usePageRoutes = () => {
   const AuthPage = lazy(() => import("../pages/AuthPage"));
   const LandingPage = lazy(() => import("../pages/LandingPage"));

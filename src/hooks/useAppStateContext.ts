@@ -5,7 +5,14 @@ export const AppStateContext = createContext<AppStateContextType | undefined>(
   undefined
 );
 
-// Create a custom hook that uses the context
+/**
+ * A hook that returns the current app state.
+ *
+ * This hook uses the `useContext` hook to get the current app state from the
+ * `AppStateContext`. If the context is not found, it throws an error.
+ *
+ * @returns The current app state.
+ */
 export const useAppStateContext = () => {
   const context = useContext(AppStateContext);
   if (!context) {
