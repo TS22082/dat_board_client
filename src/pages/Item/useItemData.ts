@@ -13,8 +13,6 @@ const useItemData = () => {
     isPublic: false,
   });
   const [itemLoading, setItemLoading] = useState(true);
-
-  // const [items, setItems] = useState<ItemType[]>([]);
   const [itemsLoading, setItemsLoading] = useState(true);
 
   const { items, dispatch } = useAppStateContext();
