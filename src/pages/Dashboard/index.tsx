@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { ItemType } from "../../sys/types";
 
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { useAppStateContext } from "../../hooks/useAppStateContext";
+import { useAppStateContext } from "../../context/useAppStateContext";
 
 import ItemCard from "../../Components/ItemCard";
 import { SET_ITEMS } from "../../sys/constants";

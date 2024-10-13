@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { AppStateContext } from "../../hooks/useAppStateContext";
+import { AppStateContext } from "../useAppStateContext";
 import {
   ActionType,
   AppStateProviderProps,

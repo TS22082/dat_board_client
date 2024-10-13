@@ -3,7 +3,7 @@ import { ItemCardProps } from "../../sys/types";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { DeleteOutline, DoubleArrowOutlined } from "@mui/icons-material";
 import useRadNavigation from "../../hooks/useRadNavigation";
-import { useAppStateContext } from "../../hooks/useAppStateContext";
+import { useAppStateContext } from "../../context/useAppStateContext";
 import { DELETE_ITEM_MODAL, OPEN_MODAL } from "../../sys/constants";
 
 const ItemCard: React.FC<ItemCardProps> = ({ item }) => {

@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
-import { useAppStateContext } from "../../../hooks/useAppStateContext";
+import { useAppStateContext } from "../../../context/useAppStateContext";
 import { CLOSE_MODAL, DELETE_ITEM_BY_ID } from "../../../sys/constants";
 
 const DeleteItemModal = () => {

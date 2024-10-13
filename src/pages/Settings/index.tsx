@@ -1,5 +1,5 @@
 import { Box, Switch, Typography } from "@mui/material";
-import { useAppStateContext } from "../../hooks/useAppStateContext";
+import { useAppStateContext } from "../../context/useAppStateContext";
 import { TOGGLE_THEME } from "../../sys/constants";
 
 const Settings = () => {

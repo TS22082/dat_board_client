@@ -9,13 +9,13 @@ import {
 } from "@mui/material";
 import { Form, useParams } from "react-router-dom";
 import { useState } from "react";
-import { useAppStateContext } from "../../../hooks/useAppStateContext";
+import { useAppStateContext } from "../../../context/useAppStateContext";
 import { ADD_ITEM, CLOSE_MODAL } from "../../../sys/constants";
 
 const CreateThingModal = () => {
   const [form, setForm] = useState({
     title: "",
-    parentId: undefined || "",
+    parentId: "",
     isPublic: false,
   });
 
