@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { ItemType } from "../../sys/types";
-
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useAppStateContext } from "../../context/useAppStateContext";
 
 import ItemCard from "../../Components/ItemCard";
@@ -43,13 +41,13 @@ const Dashboard = () => {
   }, [dispatch]);
 
   return (
-    <Grid2 container spacing={2}>
+    <div>
       {items.map((item: ItemType) => (
-        <Grid2 key={item.id} xs={12} sm={6} md={4}>
+        <div>
           <ItemCard item={item} />
-        </Grid2>
+        </div>
       ))}
-    </Grid2>
+    </div>
   );
 };
 

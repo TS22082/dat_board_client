@@ -1,4 +1,3 @@
-import { Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useRadNavigation from "../../hooks/useRadNavigation";
@@ -35,17 +34,9 @@ const SSORedirect = () => {
   }, [code, handleNavigate]);
 
   return (
-    <Box
-      sx={{
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CircularProgress />
-    </Box>
+    <div>
+      <h1>Loading ...</h1>
+    </div>
   );
 };
 

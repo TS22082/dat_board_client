@@ -1,6 +1,4 @@
-import { Box, Typography } from "@mui/material";
 import useItemData from "./useItemData";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { ItemType } from "../../sys/types";
 import ItemCard from "../../Components/ItemCard";
 import { QRCodeCanvas } from "qrcode.react";
@@ -10,20 +8,18 @@ const Item = () => {
 
   return (
     <>
-      <Box>
-        <Typography variant="h1">
-          {itemLoading ? "Loading..." : item.title}
-        </Typography>
+      <div>
+        <h1>{itemLoading ? "Loading..." : item.title}</h1>
         <QRCodeCanvas value={item.id} />
-        <Typography variant="h1">{itemsLoading && "Loading..."}</Typography>
-        <Grid2 container spacing={2}>
+        <h1>{itemsLoading && "Loading..."}</h1>
+        <div>
           {items.map((i: ItemType) => (
-            <Grid2 key={i.id} xs={12} sm={6} md={4}>
+            <div>
               <ItemCard item={i} />
-            </Grid2>
+            </div>
           ))}
-        </Grid2>
-      </Box>
+        </div>
+      </div>
     </>
   );
 };

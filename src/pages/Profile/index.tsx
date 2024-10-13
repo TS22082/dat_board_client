@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 type Response = {
@@ -32,7 +31,7 @@ const Profile = () => {
     };
   }, []);
 
-  return <Typography variant="h6">Profile {response?.message}</Typography>;
+  return <h1>Profile {response?.message}</h1>;
 };
 
 export default Profile;
