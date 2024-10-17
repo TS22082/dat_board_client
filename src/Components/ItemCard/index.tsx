@@ -3,6 +3,26 @@ import { ItemCardProps } from "../../sys/types";
 import useRadNavigation from "../../hooks/useRadNavigation";
 import { useAppStateContext } from "../../context/useAppStateContext";
 import { DELETE_ITEM_MODAL, OPEN_MODAL } from "../../sys/constants";
+import styled from "styled-components";
+import { CaretNext, Trash } from "grommet-icons";
+import ToolTip from "../Tooltip";
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+`;
 
 const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   const { dispatch } = useAppStateContext();
@@ -19,24 +39,30 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>{item.title}</h1>
-      </div>
-      <div>
-        <button onClick={() => handleDelete(item.id, item.title)}>
-          Delete
-        </button>
-        <button
-          onClick={() => {
-            handleNavigate({
-              label: item.title,
-              route: `/item/${item.id}`,
-            });
-          }}
-        ></button>
-      </div>
-    </div>
+    <CardContainer>
+      <h4>{item.title}</h4>
+      <ButtonContainer>
+        <ToolTip position="down" text="Delete">
+          <Trash
+            size="medium"
+            color="black"
+            onClick={() => handleDelete(item.id, item.title)}
+          />
+        </ToolTip>
+        <ToolTip position="down" text="View Details">
+          <CaretNext
+            size="medium"
+            color="black"
+            onClick={() => {
+              handleNavigate({
+                label: item.title,
+                route: `/item/${item.id}`,
+              });
+            }}
+          />
+        </ToolTip>
+      </ButtonContainer>
+    </CardContainer>
   );
 };
 

@@ -18,6 +18,7 @@ import {
   LOGOUT,
   OPEN_MODAL,
   RESET_ITEMS,
+  SET_BREAKPOINT,
   SET_ITEMS,
   TOGGLE_THEME,
 } from "../../sys/constants";
@@ -28,6 +29,7 @@ const initialState: StateType = {
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
   items: [],
   modalData: null,
+  screenSize: "md",
 };
 
 // Define the reducer function
@@ -73,6 +75,10 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
     }
     case RESET_ITEMS:
       return { ...state, items: [] };
+
+    case SET_BREAKPOINT: {
+      return { ...state, screenSize: action.payload as string };
+    }
     default:
       return state;
   }
@@ -90,6 +96,7 @@ const AppStateProvider = ({ children }: AppStateProviderProps) => {
         breadcrumbs: state.breadcrumbs,
         modalData: state.modalData,
         items: state.items,
+        screenSize: state.screenSize,
         dispatch,
       }}
     >

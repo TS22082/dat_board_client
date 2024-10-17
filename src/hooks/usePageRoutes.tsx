@@ -1,22 +1,18 @@
-import { Suspense, lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
-import SSORedirect from "../pages/SSORedirect";
-import Layout from "../Components/Layout";
-import Settings from "../pages/Settings";
-import Profile from "../pages/Profile";
-import Item from "../pages/Item";
-
-type Route = {
-  path: string;
-  element: React.ReactNode;
-};
+import { lazy, Suspense } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+import SSORedirect from '../pages/SSORedirect';
+import Layout from '../Components/Layout';
+import Settings from '../pages/Settings';
+import Profile from '../pages/Profile';
+import Item from '../pages/Item';
+import { Route } from '../sys/types.ts';
 
 /**
  * usePageRoutes
  *
  * This hook generates a list of routes for the Dat-Dash app.
  *
- * It uses React.lazy to import the components only when needed,
+ * It uses lazy to import the components only when needed,
  * and React.Suspense to handle the loading state.
  *
  * The returned value is a list of routes that can be passed to
@@ -34,15 +30,15 @@ type Route = {
  * - /applets: The applets page.
  */
 const usePageRoutes = () => {
-  const AuthPage = lazy(() => import("../pages/AuthPage"));
-  const LandingPage = lazy(() => import("../pages/LandingPage"));
-  const GhCallback = lazy(() => import("../pages/GhCallback"));
-  const ProtectedRoute = lazy(() => import("../pages/ProtectedRoute"));
-  const Dashboard = lazy(() => import("../pages/Dashboard"));
+  const AuthPage = lazy(() => import('../pages/AuthPage'));
+  const LandingPage = lazy(() => import('../pages/LandingPage'));
+  const GhCallback = lazy(() => import('../pages/GhCallback'));
+  const ProtectedRoute = lazy(() => import('../pages/ProtectedRoute'));
+  const ItemsSection = lazy(() => import('../Components/ItemsSection'));
 
   const routes: Route[] = [
     {
-      path: "/auth",
+      path: '/auth',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <AuthPage />
@@ -50,16 +46,15 @@ const usePageRoutes = () => {
       ),
     },
     {
-      path: "/",
+      path: '/',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <LandingPage />
         </Suspense>
       ),
     },
-
     {
-      path: "/auth/gh-callback",
+      path: '/auth/gh-callback',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <GhCallback />
@@ -67,7 +62,7 @@ const usePageRoutes = () => {
       ),
     },
     {
-      path: "/auth/sso-redirect",
+      path: '/auth/sso-redirect',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <SSORedirect />
@@ -75,19 +70,19 @@ const usePageRoutes = () => {
       ),
     },
     {
-      path: "/home",
+      path: '/home',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <ProtectedRoute>
             <Layout>
-              <Dashboard />
+              <ItemsSection />
             </Layout>
           </ProtectedRoute>
         </Suspense>
       ),
     },
     {
-      path: "/item/:id",
+      path: '/item/:id',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <ProtectedRoute>
@@ -99,7 +94,7 @@ const usePageRoutes = () => {
       ),
     },
     {
-      path: "/settings",
+      path: '/settings',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <ProtectedRoute>
@@ -111,7 +106,7 @@ const usePageRoutes = () => {
       ),
     },
     {
-      path: "/profile",
+      path: '/profile',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <ProtectedRoute>
@@ -123,7 +118,7 @@ const usePageRoutes = () => {
       ),
     },
     {
-      path: "/applets",
+      path: '/applets',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <ProtectedRoute>

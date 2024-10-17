@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { useAppStateContext } from "../context/useAppStateContext";
+import { useNavigate } from 'react-router-dom';
+import { useAppStateContext } from '../context/useAppStateContext';
 import {
   ADD_BREADCRUMB,
   REMOVE_BREADCRUMB,
   RESET_ITEMS,
-} from "../sys/constants";
-import { NavArgsType } from "../sys/types";
+} from '../sys/constants';
+import { NavArgsType } from '../sys/types';
 
 /**
  * A hook that provides navigation functionality to the app.
@@ -31,12 +31,13 @@ const useRadNavigation = () => {
 
   const handleNavigate = (navArgs: NavArgsType): void => {
     // check to see if the breadcrumb already exists in array
-    dispatch({ type: RESET_ITEMS, payload: null });
 
-    if (breadcrumbs.some((crumb) => crumb.label === navArgs.label)) {
-      return navigate(navArgs.route);
+    console.log('nav args ==>', navArgs);
+    if (breadcrumbs[breadcrumbs.length - 1]?.label === navArgs.label) {
+      return;
     }
 
+    dispatch({ type: RESET_ITEMS, payload: null });
     dispatch({ type: ADD_BREADCRUMB, payload: navArgs });
 
     return navigate(navArgs.route);

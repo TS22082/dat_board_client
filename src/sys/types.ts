@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import {
   ADD_BREADCRUMB,
   ADD_ITEM,
@@ -9,9 +9,15 @@ import {
   OPEN_MODAL,
   REMOVE_BREADCRUMB,
   RESET_ITEMS,
+  SET_BREAKPOINT,
   SET_ITEMS,
   TOGGLE_THEME,
-} from "./constants";
+} from './constants';
+
+export type Route = {
+  path: string;
+  element: ReactNode;
+};
 
 export type UserType = {
   Email: string;
@@ -36,9 +42,10 @@ export type ModalDataType = {
 export type StateType = {
   user: UserType | null;
   breadcrumbs: BreadCrumb[];
-  theme: "light" | "dark";
+  theme: 'light' | 'dark';
   modalData: ModalDataType | null;
   items: ItemType[];
+  screenSize: string;
 };
 
 export type ActionType = {
@@ -54,7 +61,8 @@ export type ActionType = {
     | typeof SET_ITEMS
     | typeof DELETE_ITEM_BY_ID
     | typeof ADD_ITEM
-    | typeof RESET_ITEMS;
+    | typeof RESET_ITEMS
+    | typeof SET_BREAKPOINT;
   payload:
     | null
     | UserType
@@ -72,9 +80,10 @@ export type AppStateProviderProps = {
 export type AppStateContextType = {
   user: UserType | null;
   breadcrumbs: BreadCrumb[];
-  theme: "light" | "dark";
+  theme: 'light' | 'dark';
   modalData: ModalDataType | null;
   items: ItemType[];
+  screenSize: string;
   dispatch: React.Dispatch<ActionType>;
 };
 
