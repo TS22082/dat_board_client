@@ -6,6 +6,7 @@ import Settings from '../pages/Settings';
 import Profile from '../pages/Profile';
 import Item from '../pages/Item';
 import { Route } from '../sys/types.ts';
+import NewItem from '../pages/NewItem';
 
 /**
  * usePageRoutes
@@ -25,6 +26,7 @@ import { Route } from '../sys/types.ts';
  * - /auth/sso-redirect: The redirect page for the SSO flow.
  * - /home: The dashboard page.
  * - /item/:id: The item page.
+ * - /item/new/:id: The new item page, id is the parent if it exists.
  * - /settings: The settings page.
  * - /profile: The profile page.
  * - /applets: The applets page.
@@ -36,6 +38,7 @@ const usePageRoutes = () => {
   const ProtectedRoute = lazy(() => import('../pages/ProtectedRoute'));
   const ItemsSection = lazy(() => import('../Components/ItemsSection'));
 
+  // TODO: geek Add applets page
   const routes: Route[] = [
     {
       path: '/auth',
@@ -88,6 +91,18 @@ const usePageRoutes = () => {
           <ProtectedRoute>
             <Layout>
               <Item />
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      ),
+    },
+    {
+      path: '/item/new',
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <NewItem />
             </Layout>
           </ProtectedRoute>
         </Suspense>

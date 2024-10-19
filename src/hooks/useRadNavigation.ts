@@ -30,13 +30,6 @@ const useRadNavigation = () => {
   const { breadcrumbs, dispatch } = useAppStateContext();
 
   const handleNavigate = (navArgs: NavArgsType): void => {
-    // check to see if the breadcrumb already exists in array
-
-    console.log('nav args ==>', navArgs);
-    if (breadcrumbs[breadcrumbs.length - 1]?.label === navArgs.label) {
-      return;
-    }
-
     dispatch({ type: RESET_ITEMS, payload: null });
     dispatch({ type: ADD_BREADCRUMB, payload: navArgs });
 
@@ -48,7 +41,11 @@ const useRadNavigation = () => {
     return navigate(-1);
   };
 
-  return { handleNavigate, handleBack, breadcrumbs };
+  const navigateRaw = (path: string) => {
+    return navigate(path);
+  };
+
+  return { handleNavigate, handleBack, navigateRaw, breadcrumbs };
 };
 
 export default useRadNavigation;

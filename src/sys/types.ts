@@ -29,21 +29,10 @@ export type BreadCrumb = {
   route: string;
 };
 
-export type DeleteItemModalData = {
-  id: string;
-  title: string;
-};
-
-export type ModalDataType = {
-  type: string;
-  data: DeleteItemModalData | null | undefined;
-};
-
 export type StateType = {
   user: UserType | null;
   breadcrumbs: BreadCrumb[];
   theme: 'light' | 'dark';
-  modalData: ModalDataType | null;
   items: ItemType[];
   screenSize: string;
 };
@@ -63,14 +52,7 @@ export type ActionType = {
     | typeof ADD_ITEM
     | typeof RESET_ITEMS
     | typeof SET_BREAKPOINT;
-  payload:
-    | null
-    | UserType
-    | BreadCrumb
-    | ModalDataType
-    | ItemType[]
-    | string
-    | ItemType;
+  payload: null | UserType | BreadCrumb | ItemType[] | string | ItemType;
 };
 
 export type AppStateProviderProps = {
@@ -81,7 +63,6 @@ export type AppStateContextType = {
   user: UserType | null;
   breadcrumbs: BreadCrumb[];
   theme: 'light' | 'dark';
-  modalData: ModalDataType | null;
   items: ItemType[];
   screenSize: string;
   dispatch: React.Dispatch<ActionType>;
