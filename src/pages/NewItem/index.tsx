@@ -1,5 +1,8 @@
+import useNewItemData from './useNewItemData.ts';
+
 const NewItem = () => {
-  return <h1>This is the thing</h1>;
+  const { createNewItem } = useNewItemData();
+  return <button onClick={createNewItem}>This is the thing</button>;
 };
 
 export default NewItem;
