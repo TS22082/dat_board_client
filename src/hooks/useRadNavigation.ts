@@ -41,11 +41,15 @@ const useRadNavigation = () => {
     return navigate(-1);
   };
 
+  const backRaw = () => {
+    return navigate(-1);
+  };
+
   const navigateRaw = (path: string) => {
     return navigate(path);
   };
 
-  return { handleNavigate, handleBack, navigateRaw, breadcrumbs };
+  return { handleNavigate, handleBack, navigateRaw, backRaw, breadcrumbs };
 };
 
 export default useRadNavigation;

@@ -1,14 +1,21 @@
 import useRadNavigation from '../../hooks/useRadNavigation.ts';
+import { useState } from 'react';
 
 const useNewItemData = () => {
+  const [isPublic, setIsPublic] = useState(false);
   const params = new URLSearchParams(window.location.search);
   const parentId = params.get('parentId');
-  const { navigateRaw } = useRadNavigation();
+  const { navigateRaw, backRaw } = useRadNavigation();
+  const [title, setTitle] = useState('');
 
-  const createNewItem = async () => {
+  const createNewItem = async (
+    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
     const newItem = {
-      title: 'New Item',
-      isPublic: false,
+      title: title,
+      isPublic: isPublic,
       parentId: parentId || '',
     };
 
@@ -34,7 +41,20 @@ const useNewItemData = () => {
     }
   };
 
-  return { parentId, createNewItem };
+  const handleCancelClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    backRaw();
+  };
+
+  return {
+    createNewItem,
+    handleCancelClick,
+    setIsPublic,
+    setTitle,
+    title,
+    isPublic,
+    parentId,
+  };
 };
 
 export default useNewItemData;
