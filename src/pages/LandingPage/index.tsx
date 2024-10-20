@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import useRadNavigation from "../../hooks/useRadNavigation";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import useRadNavigation from '../../hooks/useRadNavigation';
 
 const LandingPage = () => {
   const { handleNavigate } = useRadNavigation();
@@ -8,25 +8,27 @@ const LandingPage = () => {
 
   useEffect(() => {
     (async () => {
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) return;
-
-      const userResponse = await fetch("/api/user", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const userResponse = await fetch(`${baseUrl}/api/user`, {
         headers: {
           Authorization: accessToken,
         },
       });
       if (!userResponse.ok) {
-        localStorage.removeItem("accessToken");
+        console.log("Huh? I'm not logged in");
+        localStorage.removeItem('accessToken');
         return;
       }
       const user = await userResponse.json();
       if (!user) {
-        localStorage.removeItem("accessToken");
+        console.log("Huh? I'm not logged in");
+        localStorage.removeItem('accessToken');
         return;
       }
 
-      handleNavigate({ label: "Dashboard", route: "/home" });
+      handleNavigate({ label: 'Dashboard', route: '/home' });
     })();
   }, [handleNavigate]);
 
@@ -35,7 +37,7 @@ const LandingPage = () => {
       <div>
         <h2>Welcome to Dat Dash</h2>
         <h2>Your one-stop solution for all your data management needs.</h2>
-        <button onClick={() => navigate("/auth")}>
+        <button onClick={() => navigate('/auth')}>
           Log in or Create an Account
         </button>
       </div>

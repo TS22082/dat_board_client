@@ -20,7 +20,8 @@ const useNewItemData = () => {
     };
 
     try {
-      const response = await fetch('/api/item', {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/api/item`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

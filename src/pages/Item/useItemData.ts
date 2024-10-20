@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { ItemType } from "../../sys/types";
-import { useParams } from "react-router-dom";
-import { useAppStateContext } from "../../context/useAppStateContext";
-import { SET_ITEMS } from "../../sys/constants";
+import { useEffect, useState } from 'react';
+import { ItemType } from '../../sys/types';
+import { useParams } from 'react-router-dom';
+import { useAppStateContext } from '../../context/useAppStateContext';
+import { SET_ITEMS } from '../../sys/constants';
 
 const useItemData = () => {
   const params = useParams();
   const [item, setItem] = useState<ItemType>({
-    id: "",
-    title: "",
-    parentId: "",
+    id: '',
+    title: '',
+    parentId: '',
     isPublic: false,
   });
   const [itemLoading, setItemLoading] = useState(true);
@@ -22,23 +22,23 @@ const useItemData = () => {
     const signal = controller.signal;
 
     (async () => {
-      const authorizationToken = localStorage.getItem("accessToken") || "";
+      const authorizationToken = localStorage.getItem('accessToken') || '';
       setItemLoading(true);
 
       try {
         if (!params.id) return;
-
-        const response = await fetch(`/api/item/${params.id}`, {
-          method: "GET",
+        const baseUrl = import.meta.env.VITE_API_BASE_URL;
+        const response = await fetch(`${baseUrl}/api/item/${params.id}`, {
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: authorizationToken,
           },
           signal,
         });
 
         if (!response.ok) {
-          console.error("Error fetching item:", response.statusText);
+          console.error('Error fetching item:', response.statusText);
           return;
         }
 
@@ -46,7 +46,7 @@ const useItemData = () => {
 
         setItem(data);
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
       } finally {
         setItemLoading(false);
       }
@@ -58,23 +58,24 @@ const useItemData = () => {
   }, [params]);
 
   useEffect(() => {
-    const id = params.id || "";
+    const id = params.id || '';
     if (!id) return;
 
     setItemsLoading(true);
 
     (async () => {
       try {
-        const response = await fetch(`/api/items?parentId=${id}`, {
-          method: "GET",
+        const baseUrl = import.meta.env.VITE_API_BASE_URL;
+        const response = await fetch(`${baseUrl}/api/items?parentId=${id}`, {
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("accessToken") || "",
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('accessToken') || '',
           },
         });
 
         if (!response.ok) {
-          console.error("Error fetching items:", response.statusText);
+          console.error('Error fetching items:', response.statusText);
           return;
         }
 
@@ -87,7 +88,7 @@ const useItemData = () => {
           });
         }
       } catch (error) {
-        console.error("error", error);
+        console.error('error', error);
       } finally {
         setItemsLoading(false);
       }

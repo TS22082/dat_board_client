@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppStateContext } from "../../context/useAppStateContext";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppStateContext } from '../../context/useAppStateContext';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -13,45 +13,48 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem('accessToken');
 
       if (!accessToken) {
-        navigate("/");
+        navigate('/');
         return;
       }
 
       try {
-        const userResponse = await fetch("/api/user", {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL;
+        const userResponse = await fetch(`${baseUrl}/api/user`, {
           headers: {
             Authorization: accessToken,
           },
         });
 
         if (!userResponse.ok) {
-          localStorage.removeItem("accessToken");
-          navigate("/");
+          console.log('loging out');
+          localStorage.removeItem('accessToken');
+          navigate('/');
           return;
         }
 
         const userResponseData = await userResponse.json();
 
         if (userResponseData.error) {
-          localStorage.removeItem("accessToken");
-          navigate("/");
+          console.log('loging out');
+          localStorage.removeItem('accessToken');
+          navigate('/');
           return;
         }
 
         const { user } = userResponseData;
 
         dispatch({
-          type: "LOGIN",
+          type: 'LOGIN',
           payload: user,
         });
 
         setConfirmed(true);
       } catch (err) {
-        localStorage.removeItem("accessToken");
-        navigate("/");
+        localStorage.removeItem('accessToken');
+        navigate('/');
       }
     })();
   }, [navigate, dispatch]);

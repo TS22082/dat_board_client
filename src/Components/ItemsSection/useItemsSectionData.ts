@@ -17,8 +17,8 @@ const useItemsSectionData = () => {
         if (!accessToken) {
           return;
         }
-
-        const response = await fetch(`/api/items${query}`, {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL;
+        const response = await fetch(`${baseUrl}/api/items${query}`, {
           method: 'GET',
           headers: {
             Authorization: accessToken,
