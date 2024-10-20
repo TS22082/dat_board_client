@@ -1,35 +1,31 @@
-import { useReducer } from "react";
-import { AppStateContext } from "../useAppStateContext";
+import { useReducer } from 'react';
+import { AppStateContext } from '../useAppStateContext';
 import {
   ActionType,
   AppStateProviderProps,
   BreadCrumb,
   ItemType,
-  ModalDataType,
   StateType,
   UserType,
-} from "../../sys/types";
+} from '../../sys/types';
 import {
   ADD_BREADCRUMB,
   ADD_ITEM,
-  CLOSE_MODAL,
   DELETE_ITEM_BY_ID,
   LOGIN,
   LOGOUT,
-  OPEN_MODAL,
   RESET_ITEMS,
   SET_BREAKPOINT,
   SET_ITEMS,
   TOGGLE_THEME,
-} from "../../sys/constants";
+} from '../../sys/constants';
 
 const initialState: StateType = {
   user: null,
-  breadcrumbs: JSON.parse(localStorage.getItem("breadcrumbs") as string) || [],
-  theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
+  breadcrumbs: JSON.parse(localStorage.getItem('breadcrumbs') as string) || [],
+  theme: (localStorage.getItem('theme') as 'light' | 'dark') || 'light',
   items: [],
-  modalData: null,
-  screenSize: "md",
+  screenSize: 'md',
 };
 
 // Define the reducer function
@@ -42,7 +38,7 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
       return { ...state, user: null };
     case ADD_BREADCRUMB:
       localStorage.setItem(
-        "breadcrumbs",
+        'breadcrumbs',
         JSON.stringify([...state.breadcrumbs, action.payload as BreadCrumb])
       );
       return {
@@ -50,17 +46,12 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
         breadcrumbs: [...state.breadcrumbs, action.payload as BreadCrumb],
       };
     case TOGGLE_THEME:
-      localStorage.setItem("theme", state.theme === "light" ? "dark" : "light");
+      localStorage.setItem('theme', state.theme === 'light' ? 'dark' : 'light');
       return {
         ...state,
-        theme: state.theme === "light" ? "dark" : "light",
+        theme: state.theme === 'light' ? 'dark' : 'light',
       };
-    case CLOSE_MODAL: {
-      return { ...state, modalData: null };
-    }
-    case OPEN_MODAL: {
-      return { ...state, modalData: action.payload as ModalDataType };
-    }
+
     case SET_ITEMS: {
       return { ...state, items: action.payload as ItemType[] };
     }
@@ -94,7 +85,6 @@ const AppStateProvider = ({ children }: AppStateProviderProps) => {
         theme: state.theme,
         user: state.user,
         breadcrumbs: state.breadcrumbs,
-        modalData: state.modalData,
         items: state.items,
         screenSize: state.screenSize,
         dispatch,

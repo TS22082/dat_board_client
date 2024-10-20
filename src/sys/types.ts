@@ -2,11 +2,9 @@ import { ReactNode } from 'react';
 import {
   ADD_BREADCRUMB,
   ADD_ITEM,
-  CLOSE_MODAL,
   DELETE_ITEM_BY_ID,
   LOGIN,
   LOGOUT,
-  OPEN_MODAL,
   REMOVE_BREADCRUMB,
   RESET_ITEMS,
   SET_BREAKPOINT,
@@ -45,8 +43,6 @@ export type ActionType = {
     | typeof REMOVE_BREADCRUMB
     | typeof REMOVE_BREADCRUMB
     | typeof TOGGLE_THEME
-    | typeof CLOSE_MODAL
-    | typeof OPEN_MODAL
     | typeof SET_ITEMS
     | typeof DELETE_ITEM_BY_ID
     | typeof ADD_ITEM
