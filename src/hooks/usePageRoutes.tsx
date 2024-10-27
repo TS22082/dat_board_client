@@ -32,22 +32,12 @@ import NewItem from '../pages/NewItem';
  * - /applets: The applets page.
  */
 const usePageRoutes = () => {
-  const AuthPage = lazy(() => import('../pages/AuthPage'));
   const LandingPage = lazy(() => import('../pages/LandingPage'));
   const GhCallback = lazy(() => import('../pages/GhCallback'));
   const ProtectedRoute = lazy(() => import('../pages/ProtectedRoute'));
   const ItemsSection = lazy(() => import('../Components/ItemsSection'));
 
-  // TODO: geek Add applets page
   const routes: Route[] = [
-    {
-      path: '/auth',
-      element: (
-        <Suspense fallback={<div>Loading...</div>}>
-          <AuthPage />
-        </Suspense>
-      ),
-    },
     {
       path: '/',
       element: (
