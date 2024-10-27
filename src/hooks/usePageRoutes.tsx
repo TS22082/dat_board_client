@@ -35,6 +35,7 @@ const usePageRoutes = () => {
   const Item = lazy(() => import('../pages/Item'));
   const NewItem = lazy(() => import('../pages/NewItem'));
   const Profile = lazy(() => import('../pages/Profile'));
+
   const routes: Route[] = [
     {
       path: '/',
