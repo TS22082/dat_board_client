@@ -1,12 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import SSORedirect from '../pages/SSORedirect';
-import Layout from '../Components/Layout';
-import Settings from '../pages/Settings';
-import Profile from '../pages/Profile';
-import Item from '../pages/Item';
 import { Route } from '../sys/types.ts';
-import NewItem from '../pages/NewItem';
 
 /**
  * usePageRoutes
@@ -20,7 +14,6 @@ import NewItem from '../pages/NewItem';
  * React-Router's createBrowserRouter.
  *
  * The routes are:
- * - /auth: The authentication page.
  * - /: The landing page.
  * - /auth/gh-callback: The GitHub callback page.
  * - /auth/sso-redirect: The redirect page for the SSO flow.
@@ -32,11 +25,16 @@ import NewItem from '../pages/NewItem';
  * - /applets: The applets page.
  */
 const usePageRoutes = () => {
+  const SSORedirect = lazy(() => import('../pages/SSORedirect'));
+  const Settings = lazy(() => import('../pages/Settings'));
+  const Layout = lazy(() => import('../Components/Layout'));
   const LandingPage = lazy(() => import('../pages/LandingPage'));
   const GhCallback = lazy(() => import('../pages/GhCallback'));
   const ProtectedRoute = lazy(() => import('../pages/ProtectedRoute'));
   const ItemsSection = lazy(() => import('../Components/ItemsSection'));
-
+  const Item = lazy(() => import('../pages/Item'));
+  const NewItem = lazy(() => import('../pages/NewItem'));
+  const Profile = lazy(() => import('../pages/Profile'));
   const routes: Route[] = [
     {
       path: '/',
