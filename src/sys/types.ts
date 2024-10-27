@@ -83,3 +83,5 @@ export type ItemCardProps = {
 export type ButtonProps = {
   width?: string;
 };
+
+export type RequestTypes = 'GET' | 'POST' | 'DELETE' | 'PUT';

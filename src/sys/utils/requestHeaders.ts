@@ -1,4 +1,6 @@
-const requestHeaders = (reqType: 'GET' | 'POST' | 'DELETE' | 'PUT') => {
+import { RequestTypes } from '../types.ts';
+
+const requestHeaders = (reqType: RequestTypes) => {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) return null;
   return {
