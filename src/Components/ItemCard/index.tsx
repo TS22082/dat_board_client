@@ -4,17 +4,7 @@ import useRadNavigation from '../../hooks/useRadNavigation';
 import styled from 'styled-components';
 import { CaretNext, Trash } from 'grommet-icons';
 import ToolTip from '../Tooltip';
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
+import CardContainer from '../CardContaner';
 
 const ButtonContainer = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppStateContext } from "../../context/useAppStateContext";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppStateContext } from '../../context/useAppStateContext';
+import styled from 'styled-components';
 import {
   Menu,
   Logout,
@@ -9,7 +9,7 @@ import {
   Home,
   DocumentUser,
   Apps,
-} from "grommet-icons";
+} from 'grommet-icons';
 
 const AppContainer = styled.div`
   display: flex;
@@ -32,15 +32,15 @@ const NavArea = styled.nav`
   justify-content: space-between;
   gap: 20px;
   border-radius: 25px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-import useRadNavigation from "../../hooks/useRadNavigation";
-import { LOGOUT, SET_BREAKPOINT } from "../../sys/constants";
-import ToolTip from "../Tooltip";
-import usePageBreakpoints from "../../hooks/usePageBreakpoints";
+import useRadNavigation from '../../hooks/useRadNavigation';
+import { LOGOUT, SET_BREAKPOINT } from '../../sys/constants';
+import ToolTip from '../Tooltip';
+import usePageBreakpoints from '../../hooks/usePageBreakpoints';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -53,7 +53,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
   const path = window.location.pathname;
-  const rootRoute = path.split("/")[1];
+  const rootRoute = path.split('/')[1];
 
   useEffect(() => {
     if (breakPoint !== screenSize) {
@@ -66,7 +66,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate('/');
     }
   }, [navigate, user, rootRoute, path]);
 
@@ -78,7 +78,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const pointerStyle = {
-    cursor: "pointer",
+    cursor: 'pointer',
   };
 
   return (
@@ -92,7 +92,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Home
               style={pointerStyle}
               onClick={() =>
-                handleNavigate({ label: "Dashboard", route: "/home" })
+                handleNavigate({ label: 'Dashboard', route: '/home' })
               }
               color="black"
               size="large"
@@ -102,7 +102,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Services
               style={pointerStyle}
               onClick={() =>
-                handleNavigate({ label: "Settings", route: "/settings" })
+                handleNavigate({ label: 'Settings', route: '/settings' })
               }
               color="black"
               size="large"
@@ -113,7 +113,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <DocumentUser
               style={pointerStyle}
               onClick={() =>
-                handleNavigate({ label: "Profile", route: "/profile" })
+                handleNavigate({ label: 'Profile', route: '/profile' })
               }
               color="black"
               size="large"
@@ -123,7 +123,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Apps
               style={pointerStyle}
               onClick={() =>
-                handleNavigate({ label: "Applets", route: "/applets" })
+                handleNavigate({ label: 'Applets', route: '/applets' })
               }
               color="black"
               size="large"
