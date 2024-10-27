@@ -1,5 +1,19 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * Custom hook to determine the current screen size breakpoint.
+ * Listens to window resize events and updates the breakpoint accordingly.
+ *
+ * Breakpoints:
+ * - "sm" : max-width 599px
+ * - "md" : min-width 600px and max-width 899px
+ * - "lg" : min-width 900px and max-width 1199px
+ * - "xl" : min-width 1200px
+ *
+ * @example
+ * const { breakPoint } = usePageBreakpoints();
+ * console.log(breakPoint); // Outputs "sm", "md", "lg", or "xl"
+ */
 const usePageBreakpoints = () => {
   const [breakPoint, setBreakPoint] = useState('md');
 
