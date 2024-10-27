@@ -79,3 +79,7 @@ export type ItemType = {
 export type ItemCardProps = {
   item: ItemType;
 };
+
+export type ButtonProps = {
+  width?: string;
+};

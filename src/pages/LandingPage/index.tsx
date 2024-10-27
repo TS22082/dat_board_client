@@ -1,46 +1,36 @@
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import useRadNavigation from '../../hooks/useRadNavigation';
+import Button from '../../Components/Button';
+import CardContainer from '../../Components/CardContaner';
+import useLandingPageData from './useLandingPageData.tsx';
 
 const LandingPage = () => {
-  const { handleNavigate } = useRadNavigation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    (async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) return;
-      const baseUrl = import.meta.env.VITE_API_BASE_URL;
-      const userResponse = await fetch(`${baseUrl}/api/user`, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-      if (!userResponse.ok) {
-        console.log("Huh? I'm not logged in");
-        localStorage.removeItem('accessToken');
-        return;
-      }
-      const user = await userResponse.json();
-      if (!user) {
-        console.log("Huh? I'm not logged in");
-        localStorage.removeItem('accessToken');
-        return;
-      }
-
-      handleNavigate({ label: 'Dashboard', route: '/home' });
-    })();
-  }, [handleNavigate]);
+  const { loginToGithub } = useLandingPageData();
 
   return (
-    <div>
-      <div>
-        <h2>Welcome to Dat Dash</h2>
-        <h2>Your one-stop solution for all your data management needs.</h2>
-        <button onClick={() => navigate('/auth')}>
-          Log in or Create an Account
-        </button>
-      </div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
+      <CardContainer>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '20px',
+            padding: '100px',
+            flexDirection: 'column',
+          }}
+        >
+          <h2>Welcome to Dat Dash</h2>
+          <Button width="200px" onClick={loginToGithub}>
+            Sign in with GitHub
+          </Button>
+        </div>
+      </CardContainer>
     </div>
   );
 };

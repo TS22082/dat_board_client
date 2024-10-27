@@ -1,6 +1,7 @@
 import useNewItemData from './useNewItemData.ts';
 import styled from 'styled-components';
 import Switch from '../../Components/Switch';
+import Button from '../../Components/Button';
 
 const NewItemContainer = styled.div`
   margin-top: '20px';
@@ -18,16 +19,6 @@ const NewItemForm = styled.form`
 const NewItemInput = styled.input`
   border-radius: 10px;
   padding: 5px;
-`;
-
-const NewItemButton = styled.button`
-  border-radius: 10px;
-  padding: 5px;
-  cursor: pointer;
-  background-color: black;
-  border: none;
-  color: white;
-  width: 100px;
 `;
 
 const ActionSection = styled.div`
@@ -61,10 +52,10 @@ const NewItem = () => {
           label={['Private', 'Public']}
         />
         <ActionSection>
-          <NewItemButton onClick={handleCancelClick}>Cancel</NewItemButton>
-          <NewItemButton type="submit" onClick={createNewItem}>
+          <Button onClick={handleCancelClick}>Cancel</Button>
+          <Button type="submit" onClick={createNewItem}>
             Submit
-          </NewItemButton>
+          </Button>
         </ActionSection>
       </NewItemForm>
     </NewItemContainer>
