@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useRadNavigation from '../../hooks/useRadNavigation.ts';
+import catchError from '../../sys/utils/catchError.ts';
+import requestHeaders from '../../sys/utils/requestHeaders.ts';
 
 const useItemsSectionData = () => {
   const [items, setItems] = useState([]);
@@ -11,30 +13,28 @@ const useItemsSectionData = () => {
     const query = params?.id ? `?parentId=${params.id}` : '';
 
     (async () => {
-      try {
-        const accessToken = localStorage.getItem('accessToken') || '';
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const getItemsHeaders = requestHeaders('GET');
 
-        if (!accessToken) {
-          return;
-        }
-        const baseUrl = import.meta.env.VITE_API_BASE_URL;
-        const response = await fetch(`${baseUrl}/api/items${query}`, {
-          method: 'GET',
-          headers: {
-            Authorization: accessToken,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-
-        setItems(data || []);
-      } catch (err) {
-        console.error('error ==>', err);
+      if (!getItemsHeaders) {
+        throw new Error('No access token');
       }
+
+      const [requestErr, response] = await catchError(() =>
+        fetch(`${baseUrl}/api/items${query}`, getItemsHeaders)
+      );
+
+      if (requestErr || !response || !response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const [jsonParseErr, data] = await catchError(() => response.json());
+
+      if (jsonParseErr || !data) {
+        throw new Error('Network response was not ok');
+      }
+
+      setItems(data || []);
     })();
   }, [params.id]);
 
