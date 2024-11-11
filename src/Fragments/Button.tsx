@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ButtonProps } from '../../sys/types.ts';
+import { ButtonProps } from '../sys/types.ts';
 
 const Button = styled.button<ButtonProps>`
   border-radius: 10px;

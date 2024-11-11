@@ -25,13 +25,13 @@ const useItemsSectionData = () => {
       );
 
       if (requestErr || !response || !response.ok) {
-        throw new Error('Network response was not ok');
+        console.error('Network response was not ok');
       }
 
       const [jsonParseErr, data] = await catchError(() => response.json());
 
       if (jsonParseErr || !data) {
-        throw new Error('Network response was not ok');
+        console.error('Network response was not ok');
       }
 
       setItems(data || []);

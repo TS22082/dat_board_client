@@ -35,6 +35,7 @@ const usePageRoutes = () => {
   const Item = lazy(() => import('../pages/Item'));
   const NewItem = lazy(() => import('../pages/NewItem'));
   const Profile = lazy(() => import('../pages/Profile'));
+  const DeleteItem = lazy(() => import('../pages/DeleteItem'));
 
   const routes: Route[] = [
     {
@@ -128,6 +129,18 @@ const usePageRoutes = () => {
           <ProtectedRoute>
             <Layout>
               <h6>Applets</h6>
+            </Layout>
+          </ProtectedRoute>
+        </Suspense>
+      ),
+    },
+    {
+      path: 'item/delete',
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedRoute>
+            <Layout>
+              <DeleteItem />
             </Layout>
           </ProtectedRoute>
         </Suspense>

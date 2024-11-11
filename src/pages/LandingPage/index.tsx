@@ -1,4 +1,4 @@
-import Button from '../../Components/Button';
+import Button from '../../Fragments/Button.tsx';
 import CardContainer from '../../Components/CardContaner';
 import useLandingPageData from './useLandingPageData.tsx';
 

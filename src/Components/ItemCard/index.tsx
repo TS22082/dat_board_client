@@ -23,7 +23,12 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
           <Trash
             size="medium"
             color="black"
-            onClick={() => console.log('will do something eventually')}
+            onClick={() =>
+              handleNavigate({
+                label: `Delete: ${item.title}`,
+                route: `/item/delete?itemId=${item.id}`,
+              })
+            }
           />
         </ToolTip>
         <ToolTip position="down" text="View Details">

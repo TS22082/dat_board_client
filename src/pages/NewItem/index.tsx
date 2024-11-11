@@ -1,31 +1,10 @@
 import useNewItemData from './useNewItemData.ts';
-import styled from 'styled-components';
 import Switch from '../../Components/Switch';
-import Button from '../../Components/Button';
-
-const NewItemContainer = styled.div`
-  margin-top: '20px';
-  display: flex;
-  justify-content: center;
-`;
-
-const NewItemForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 500px;
-`;
-
-const NewItemInput = styled.input`
-  border-radius: 10px;
-  padding: 5px;
-`;
-
-const ActionSection = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-`;
+import Button from '../../Fragments/Button';
+import NewItemContainer from '../../Fragments/NewItemContainer.tsx';
+import NewItemForm from '../../Fragments/NewItemForm.tsx';
+import ActionSection from '../../Fragments/ActionSection.tsx';
+import NewItemInput from '../../Fragments/NewItemInput.tsx';
 
 const NewItem = () => {
   const {
