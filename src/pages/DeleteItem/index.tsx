@@ -5,7 +5,7 @@ import Button from '../../Fragments/Button';
 import useDeleteItemData from './useDeleteItemData.ts';
 
 const DeleteItem = () => {
-  const { handleCancelClick } = useDeleteItemData();
+  const { handleCancelClick, handleDeleteItem } = useDeleteItemData();
 
   return (
     <NewItemContainer>
@@ -15,7 +15,7 @@ const DeleteItem = () => {
           <Button type="button" onClick={handleCancelClick}>
             No, Cancel
           </Button>
-          <Button type="button" onClick={() => console.log('submit')}>
+          <Button type="button" onClick={handleDeleteItem}>
             Yes, Delete
           </Button>
         </ActionSection>

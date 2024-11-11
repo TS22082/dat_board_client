@@ -31,7 +31,9 @@ const NewItem = () => {
           label={['Private', 'Public']}
         />
         <ActionSection>
-          <Button onClick={handleCancelClick}>Cancel</Button>
+          <Button type="button" onClick={handleCancelClick}>
+            Cancel
+          </Button>
           <Button type="submit" onClick={createNewItem}>
             Submit
           </Button>
