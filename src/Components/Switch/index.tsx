@@ -4,14 +4,13 @@ import styled from 'styled-components';
 const ToggleContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 100px;
   cursor: pointer;
 `;
 
-const ToggleSwitch = styled.div<{ isOn: boolean }>`
-  width: 50px;
+const ToggleSwitch = styled.div`
+  width: 44px;
   height: 24px;
-  background-color: ${({ isOn }) => (isOn ? '#000' : '#ccc')};
+  background-color: black;
   border-radius: 25px;
   position: relative;
   display: flex;
@@ -25,7 +24,7 @@ const ToggleCircle = styled.div<{ isOn: boolean }>`
   background-color: white;
   border-radius: 50%;
   position: absolute;
-  left: ${({ isOn }) => (isOn ? '27px' : '3px')};
+  left: ${({ isOn }) => (isOn ? '22px' : '2px')};
   transition: left 0.3s;
 `;
 
@@ -43,7 +42,7 @@ interface SwitchProps {
 const Switch: React.FC<SwitchProps> = ({ isOn, handleToggle, label }) => {
   return (
     <ToggleContainer onClick={handleToggle}>
-      <ToggleSwitch isOn={isOn}>
+      <ToggleSwitch>
         <ToggleCircle isOn={isOn} />
       </ToggleSwitch>
       <Label>{isOn ? label[1] : label[0]}</Label>
