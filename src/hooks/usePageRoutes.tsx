@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Route } from '../sys/types.ts';
+import LoadingContainer from '../Fragments/LoadingContainer.tsx';
 
 /**
  * usePageRoutes
@@ -41,7 +42,7 @@ const usePageRoutes = () => {
     {
       path: '/',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <LandingPage />
         </Suspense>
       ),
@@ -49,7 +50,7 @@ const usePageRoutes = () => {
     {
       path: '/auth/gh-callback',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <GhCallback />
         </Suspense>
       ),
@@ -57,7 +58,7 @@ const usePageRoutes = () => {
     {
       path: '/auth/sso-redirect',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <SSORedirect />
         </Suspense>
       ),
@@ -65,7 +66,7 @@ const usePageRoutes = () => {
     {
       path: '/home',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <ItemsSection />
@@ -77,7 +78,7 @@ const usePageRoutes = () => {
     {
       path: '/item/:id',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <Item />
@@ -89,7 +90,7 @@ const usePageRoutes = () => {
     {
       path: '/item/new',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <NewItem />
@@ -101,7 +102,7 @@ const usePageRoutes = () => {
     {
       path: '/settings',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <Settings />
@@ -113,7 +114,7 @@ const usePageRoutes = () => {
     {
       path: '/profile',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <Profile />
@@ -125,7 +126,7 @@ const usePageRoutes = () => {
     {
       path: '/applets',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <h6>Applets</h6>
@@ -137,7 +138,7 @@ const usePageRoutes = () => {
     {
       path: 'item/delete',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
               <DeleteItem />

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import useRadNavigation from '../../hooks/useRadNavigation';
+import LoadingContainer from '../../Fragments/LoadingContainer.tsx';
 
 const SSORedirect = () => {
   const queryParam = new URLSearchParams(window.location.search);
@@ -37,9 +38,9 @@ const SSORedirect = () => {
   }, [code, handleNavigate]);
 
   return (
-    <div>
+    <LoadingContainer>
       <h1>Loading ...</h1>
-    </div>
+    </LoadingContainer>
   );
 };
 
