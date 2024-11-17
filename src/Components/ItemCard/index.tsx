@@ -1,28 +1,24 @@
 import React from 'react';
 import { ItemCardProps } from '../../sys/types';
 import useRadNavigation from '../../hooks/useRadNavigation';
-import styled from 'styled-components';
 import { CaretNext, Trash } from 'grommet-icons';
 import ToolTip from '../Tooltip';
 import CardContainer from '../CardContaner';
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-`;
+import ButtonContainer from '../../Fragments/ButtonContainer';
+import { useAppStateContext } from '../../context/useAppStateContext.ts';
 
 const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
   const { handleNavigate } = useRadNavigation();
+  const { theme } = useAppStateContext();
 
   return (
-    <CardContainer>
+    <CardContainer theme={theme}>
       <h4>{item.title}</h4>
       <ButtonContainer>
-        <ToolTip position="down" text="Delete">
+        <ToolTip theme={theme} position="down" text="Delete">
           <Trash
             size="medium"
-            color="black"
+            color={theme === 'light' ? 'black' : 'white'}
             onClick={() =>
               handleNavigate({
                 label: `Delete: ${item.title}`,
@@ -31,10 +27,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
             }
           />
         </ToolTip>
-        <ToolTip position="down" text="View Details">
+        <ToolTip theme={theme} position="down" text="View Details">
           <CaretNext
             size="medium"
-            color="black"
+            color={theme === 'light' ? 'black' : 'white'}
             onClick={() => {
               handleNavigate({
                 label: item.title,

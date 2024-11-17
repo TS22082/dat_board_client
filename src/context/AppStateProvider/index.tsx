@@ -47,6 +47,10 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
       };
     case TOGGLE_THEME:
       localStorage.setItem('theme', state.theme === 'light' ? 'dark' : 'light');
+
+      document.body.style.backgroundColor =
+        state.theme === 'dark' ? 'black' : 'white';
+
       return {
         ...state,
         theme: state.theme === 'light' ? 'dark' : 'light',

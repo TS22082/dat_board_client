@@ -1,9 +1,6 @@
-import styled from "styled-components";
-import React from "react";
-
-type GridPropTypes = {
-  children: React.ReactNode;
-};
+import styled from 'styled-components';
+import React from 'react';
+import { GridPropTypes } from '../../sys/types.ts';
 
 const StyledGrid = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
-import "./App.css";
-import { RouterProvider } from "react-router-dom";
-import usePageRoutes from "./hooks/usePageRoutes";
+import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import usePageRoutes from './hooks/usePageRoutes';
 
 function App() {
   const router = usePageRoutes();

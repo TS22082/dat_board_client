@@ -1,24 +1,25 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { TooltipType, ToopTipTextProps } from '../../sys/types.ts';
 
-type TooltipType = {
-  text: string;
-  position: "up" | "down" | "left" | "right";
-  children: React.ReactNode;
-};
-
-const ToolTip: React.FC<TooltipType> = ({ text, position, children }) => {
+const ToolTip: React.FC<TooltipType> = ({
+  text,
+  position,
+  children,
+  theme,
+}) => {
   return (
     <TooltipContainer>
       {children}
-      <TooltipText position={position}>{text}</TooltipText>
+      <TooltipText theme={theme} position={position}>
+        {text}
+      </TooltipText>
     </TooltipContainer>
   );
 };
 
 export default ToolTip;
 
-// Styled components
 const TooltipContainer = styled.div`
   position: relative;
   display: inline-block;
@@ -30,10 +31,10 @@ const TooltipContainer = styled.div`
   }
 `;
 
-const TooltipText = styled.span<{ position: "up" | "down" | "left" | "right" }>`
+const TooltipText = styled.span<ToopTipTextProps>`
   visibility: hidden;
-  background-color: black;
-  color: #fff;
+  background-color: ${(props) => (props.theme === 'dark' ? 'white' : 'black')};
+  color: ${(props) => (props.theme === 'dark' ? 'black' : 'white')};
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -43,16 +44,9 @@ const TooltipText = styled.span<{ position: "up" | "down" | "left" | "right" }>`
   transition: opacity 0.3s;
   width: 120px;
 
-  &::after {
-    content: "";
-    position: absolute;
-    border-width: 5px;
-    border-style: solid;
-  }
-
   ${({ position }) => {
     switch (position) {
-      case "down":
+      case 'down':
         return css`
           top: 125%;
           left: 50%;
@@ -65,7 +59,7 @@ const TooltipText = styled.span<{ position: "up" | "down" | "left" | "right" }>`
             border-color: black transparent transparent transparent;
           }
         `;
-      case "left":
+      case 'left':
         return css`
           top: 50%;
           right: 125%;
@@ -78,7 +72,7 @@ const TooltipText = styled.span<{ position: "up" | "down" | "left" | "right" }>`
             border-color: transparent transparent transparent black;
           }
         `;
-      case "right":
+      case 'right':
         return css`
           top: 50%;
           left: 125%;
@@ -91,7 +85,7 @@ const TooltipText = styled.span<{ position: "up" | "down" | "left" | "right" }>`
             border-color: transparent black transparent transparent;
           }
         `;
-      case "up":
+      case 'up':
       default:
         return css`
           bottom: 125%;

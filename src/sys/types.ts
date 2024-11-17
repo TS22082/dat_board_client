@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import {
   ADD_BREADCRUMB,
   ADD_ITEM,
@@ -82,6 +82,49 @@ export type ItemCardProps = {
 
 export type ButtonProps = {
   width?: string;
+};
+
+export type AppContainerProps = {
+  theme: 'light' | 'dark';
+  children: JSX.Element;
+};
+
+export type GridPropTypes = {
+  children: React.ReactNode;
+};
+
+export type CardContainerProps = {
+  children: ReactNode;
+  theme: 'light' | 'dark';
+};
+
+export type NavAreaProps = {
+  theme: 'light' | 'dark';
+};
+
+export type ToggelCircleProps = {
+  theme: 'light' | 'dark';
+  isOn: boolean;
+};
+
+export type TooltipType = {
+  text: string;
+  position: 'up' | 'down' | 'left' | 'right';
+  children: React.ReactNode;
+  theme: 'light' | 'dark';
+};
+
+export type ToopTipTextProps = {
+  position: 'up' | 'down' | 'left' | 'right';
+  theme: 'light' | 'dark';
+};
+
+export type ToggleSwitchProps = {
+  theme: 'light' | 'dark';
+};
+
+export type LayoutProps = {
+  children: React.ReactNode;
 };
 
 export type RequestTypes = 'GET' | 'POST' | 'DELETE' | 'PUT';

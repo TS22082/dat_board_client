@@ -13,78 +13,81 @@ import useLayoutData from './useLayoutData.tsx';
 import AppContainer from '../AppContainer';
 import AppHeader from '../AppHeader';
 import NavArea from '../NavArea';
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
+import { LayoutProps } from '../../sys/types.ts';
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { handleNavigate } = useRadNavigation();
-  const { handleLogout } = useLayoutData();
+  const { handleLogout, theme } = useLayoutData();
 
   const pointerStyle = {
     cursor: 'pointer',
   };
 
   return (
-    <AppContainer>
-      <AppHeader>
-        <ToolTip position="right" text="Menu">
-          <Menu style={pointerStyle} color="black" size="medium" />
-        </ToolTip>
-        <NavArea>
-          <ToolTip position="down" text="Dashboard">
-            <Home
+    <AppContainer theme={theme}>
+      <>
+        <AppHeader>
+          <ToolTip theme={theme} position="right" text="Menu">
+            <Menu
               style={pointerStyle}
-              onClick={() =>
-                handleNavigate({ label: 'Dashboard', route: '/home' })
-              }
-              color="black"
-              size="large"
+              color={theme === 'light' ? 'black' : 'white'}
+              size="medium"
             />
           </ToolTip>
-          <ToolTip position="down" text="Settings">
-            <Services
-              style={pointerStyle}
-              onClick={() =>
-                handleNavigate({ label: 'Settings', route: '/settings' })
-              }
-              color="black"
-              size="large"
-            />
-          </ToolTip>
+          <NavArea theme={theme}>
+            <ToolTip theme={theme} position="down" text="Dashboard">
+              <Home
+                style={pointerStyle}
+                onClick={() =>
+                  handleNavigate({ label: 'Dashboard', route: '/home' })
+                }
+                color={theme === 'light' ? 'black' : 'white'}
+                size="large"
+              />
+            </ToolTip>
+            <ToolTip theme={theme} position="down" text="Settings">
+              <Services
+                style={pointerStyle}
+                onClick={() =>
+                  handleNavigate({ label: 'Settings', route: '/settings' })
+                }
+                color={theme === 'light' ? 'black' : 'white'}
+                size="large"
+              />
+            </ToolTip>
 
-          <ToolTip position="down" text="Profile">
-            <DocumentUser
+            <ToolTip theme={theme} position="down" text="Profile">
+              <DocumentUser
+                style={pointerStyle}
+                onClick={() =>
+                  handleNavigate({ label: 'Profile', route: '/profile' })
+                }
+                color={theme === 'light' ? 'black' : 'white'}
+                size="large"
+              />
+            </ToolTip>
+            <ToolTip theme={theme} position="down" text="Applets">
+              <Apps
+                style={pointerStyle}
+                onClick={() =>
+                  handleNavigate({ label: 'Applets', route: '/applets' })
+                }
+                color={theme === 'light' ? 'black' : 'white'}
+                size="large"
+              />
+            </ToolTip>
+          </NavArea>
+          <ToolTip theme={theme} position="left" text="Logout">
+            <Logout
               style={pointerStyle}
-              onClick={() =>
-                handleNavigate({ label: 'Profile', route: '/profile' })
-              }
-              color="black"
-              size="large"
+              color={theme === 'light' ? 'black' : 'white'}
+              size="medium"
+              onClick={handleLogout}
             />
           </ToolTip>
-          <ToolTip position="down" text="Applets">
-            <Apps
-              style={pointerStyle}
-              onClick={() =>
-                handleNavigate({ label: 'Applets', route: '/applets' })
-              }
-              color="black"
-              size="large"
-            />
-          </ToolTip>
-        </NavArea>
-        <ToolTip position="left" text="Logout">
-          <Logout
-            style={pointerStyle}
-            color="black"
-            size="medium"
-            onClick={handleLogout}
-          />
-        </ToolTip>
-      </AppHeader>
-      {children}
+        </AppHeader>
+        {children}
+      </>
     </AppContainer>
   );
 };

@@ -14,7 +14,7 @@ const ItemHeader = styled.div`
 `;
 
 const ItemsSection = () => {
-  const { items, navigateToNewItemForm } = useItemsSectionData();
+  const { items, navigateToNewItemForm, theme } = useItemsSectionData();
 
   return (
     <Grid>
@@ -23,11 +23,11 @@ const ItemsSection = () => {
           <h1>
             Item Count: <span>{items.length}</span>
           </h1>
-          <ToolTip position="left" text="Add Item">
+          <ToolTip theme={theme} position="left" text="Add Item">
             <AddCircle
               onClick={navigateToNewItemForm}
               style={{ cursor: 'pointer' }}
-              color="black"
+              color={theme === 'light' ? 'black' : 'white'}
               size="large"
             />
           </ToolTip>

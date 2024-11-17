@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import useRadNavigation from '../../hooks/useRadNavigation.ts';
 import catchError from '../../sys/utils/catchError.ts';
 import requestHeaders from '../../sys/utils/requestHeaders.ts';
+import { useAppStateContext } from '../../context/useAppStateContext.ts';
 
 const useItemsSectionData = () => {
   const [items, setItems] = useState([]);
   const params = useParams();
   const { navigateRaw } = useRadNavigation();
+  const { theme } = useAppStateContext();
 
   useEffect(() => {
     const query = params?.id ? `?parentId=${params.id}` : '';
@@ -48,6 +50,7 @@ const useItemsSectionData = () => {
 
   return {
     items,
+    theme,
     navigateToNewItemForm,
   };
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useAppStateContext } from '../../context/useAppStateContext.ts';
+import { ToggelCircleProps, ToggleSwitchProps } from '../../sys/types.ts';
 
 const ToggleContainer = styled.div`
   display: flex;
@@ -7,10 +9,10 @@ const ToggleContainer = styled.div`
   cursor: pointer;
 `;
 
-const ToggleSwitch = styled.div`
+const ToggleSwitch = styled.div<ToggleSwitchProps>`
   width: 44px;
   height: 24px;
-  background-color: black;
+  background-color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
   border-radius: 25px;
   position: relative;
   display: flex;
@@ -18,10 +20,10 @@ const ToggleSwitch = styled.div`
   border: none;
 `;
 
-const ToggleCircle = styled.div<{ isOn: boolean }>`
+const ToggleCircle = styled.div<ToggelCircleProps>`
   width: 20px;
   height: 20px;
-  background-color: white;
+  background-color: ${({ theme }) => (theme === 'dark' ? 'black' : 'white')};
   border-radius: 50%;
   position: absolute;
   left: ${({ isOn }) => (isOn ? '22px' : '2px')};
@@ -40,10 +42,11 @@ interface SwitchProps {
 }
 
 const Switch: React.FC<SwitchProps> = ({ isOn, handleToggle, label }) => {
+  const { theme } = useAppStateContext();
   return (
     <ToggleContainer onClick={handleToggle}>
-      <ToggleSwitch>
-        <ToggleCircle isOn={isOn} />
+      <ToggleSwitch theme={theme}>
+        <ToggleCircle theme={theme} isOn={isOn} />
       </ToggleSwitch>
       <Label>{isOn ? label[1] : label[0]}</Label>
     </ToggleContainer>

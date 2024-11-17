@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LOGOUT, SET_BREAKPOINT } from '../../sys/constants.ts';
 
 const useLayoutData = () => {
-  const { user, screenSize, dispatch } = useAppStateContext();
+  const { user, screenSize, theme, dispatch } = useAppStateContext();
   const { breakPoint } = usePageBreakpoints();
   const navigate = useNavigate();
 
@@ -36,6 +36,7 @@ const useLayoutData = () => {
 
   return {
     handleLogout,
+    theme,
   };
 };
 
