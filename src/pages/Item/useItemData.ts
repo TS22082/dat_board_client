@@ -46,7 +46,7 @@ const useItemData = () => {
 
         setItem(data);
       } catch (error) {
-        console.log('error', error);
+        console.error('Error', error);
       } finally {
         setItemLoading(false);
       }

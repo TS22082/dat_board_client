@@ -29,7 +29,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         });
 
         if (!userResponse.ok) {
-          console.log('loging out');
           localStorage.removeItem('accessToken');
           navigate('/');
           return;
@@ -38,7 +37,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         const userResponseData = await userResponse.json();
 
         if (userResponseData.error) {
-          console.log('loging out');
           localStorage.removeItem('accessToken');
           navigate('/');
           return;

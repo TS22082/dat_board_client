@@ -31,16 +31,13 @@ const useDeleteItemData = () => {
       throw new Error('Error deleting item');
     }
 
-    const [parseJsonErr, deleteResponseData] = await catchError(() =>
-      deleteResponse.json()
-    );
+    const [parseJsonErr] = await catchError(() => deleteResponse.json());
 
     if (parseJsonErr) {
       console.error(parseJsonErr);
       throw new Error('Error parsing json');
     }
 
-    console.log('deleteResponse ==> ', deleteResponseData);
     handleBack();
   };
 

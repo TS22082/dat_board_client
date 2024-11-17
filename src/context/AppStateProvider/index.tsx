@@ -49,7 +49,7 @@ const appStateReducer = (state: StateType, action: ActionType): StateType => {
       localStorage.setItem('theme', state.theme === 'light' ? 'dark' : 'light');
 
       document.body.style.backgroundColor =
-        state.theme === 'dark' ? 'black' : 'white';
+        state.theme === 'dark' ? 'white' : 'black';
 
       return {
         ...state,

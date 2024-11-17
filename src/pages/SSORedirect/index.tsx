@@ -32,7 +32,7 @@ const SSORedirect = () => {
 
         handleNavigate({ label: 'Dashboard', route: '/home' });
       } catch (err) {
-        console.log('this is the error ==>', err);
+        console.error('Error ==>', err);
       }
     })();
   }, [code, handleNavigate]);

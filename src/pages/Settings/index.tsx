@@ -1,14 +1,9 @@
 import Switch from '../../Components/Switch';
 import { useAppStateContext } from '../../context/useAppStateContext.ts';
-import { useEffect } from 'react';
 import { TOGGLE_THEME } from '../../sys/constants.ts';
 
 const Settings = () => {
   const { theme, dispatch } = useAppStateContext();
-
-  useEffect(() => {
-    console.log('Theme ==>', theme);
-  }, [theme]);
 
   return (
     <div>

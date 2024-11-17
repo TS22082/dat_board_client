@@ -38,7 +38,7 @@ const useNewItemData = () => {
 
       navigateRaw(goToAddress);
     } catch (err) {
-      console.log('this is the error ==>', err);
+      console.error('Error ==>', err);
     }
   };
 
