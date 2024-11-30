@@ -14,6 +14,7 @@ const useLandingPageData = () => {
 
   useEffect(() => {
     (async () => {
+      document.body.style.backgroundColor = 'white';
       const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) return;
       const baseUrl = import.meta.env.VITE_API_BASE_URL;

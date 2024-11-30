@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Route } from '../sys/types.ts';
 import LoadingContainer from '../Fragments/LoadingContainer.tsx';
+import Applets from '../pages/Applets';
 
 /**
  * usePageRoutes
@@ -129,7 +130,7 @@ const usePageRoutes = () => {
         <Suspense fallback={<LoadingContainer>Loading...</LoadingContainer>}>
           <ProtectedRoute>
             <Layout>
-              <h6>Applets</h6>
+              <Applets />
             </Layout>
           </ProtectedRoute>
         </Suspense>
