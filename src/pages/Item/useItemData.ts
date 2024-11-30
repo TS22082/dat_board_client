@@ -12,10 +12,8 @@ const useItemData = () => {
     parentId: '',
     isPublic: false,
   });
-  const [itemLoading, setItemLoading] = useState(true);
-  const [itemsLoading, setItemsLoading] = useState(true);
 
-  const { items, dispatch } = useAppStateContext();
+  const [itemLoading, setItemLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -57,49 +55,9 @@ const useItemData = () => {
     };
   }, [params]);
 
-  useEffect(() => {
-    const id = params.id || '';
-    if (!id) return;
-
-    setItemsLoading(true);
-
-    (async () => {
-      try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL;
-        const response = await fetch(`${baseUrl}/api/items?parentId=${id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('accessToken') || '',
-          },
-        });
-
-        if (!response.ok) {
-          console.error('Error fetching items:', response.statusText);
-          return;
-        }
-
-        const data = await response.json();
-
-        if (data) {
-          dispatch({
-            type: SET_ITEMS,
-            payload: data,
-          });
-        }
-      } catch (error) {
-        console.error('error', error);
-      } finally {
-        setItemsLoading(false);
-      }
-    })();
-  }, [dispatch, params.id]);
-
   return {
     item,
-    items,
     itemLoading,
-    itemsLoading,
   };
 };
 

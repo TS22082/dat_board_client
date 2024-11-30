@@ -128,3 +128,9 @@ export type LayoutProps = {
 };
 
 export type RequestTypes = 'GET' | 'POST' | 'DELETE' | 'PUT';
+
+export type WidgetType = {
+  id: string;
+  description: string;
+  title: string;
+};
