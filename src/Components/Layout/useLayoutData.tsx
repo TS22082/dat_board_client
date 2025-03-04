@@ -9,6 +9,10 @@ const useLayoutData = () => {
   const { breakPoint } = usePageBreakpoints();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log('Breakpoint hit ==>', breakPoint);
+  }, [breakPoint]);
+
   const path = window.location.pathname;
   const rootRoute = path.split('/')[1];
 

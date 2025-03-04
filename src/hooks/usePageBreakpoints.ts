@@ -18,6 +18,7 @@ const usePageBreakpoints = () => {
   const [breakPoint, setBreakPoint] = useState('md');
 
   useEffect(() => {
+    console.log('Is this happening?');
     const mediaQueries = [
       { name: 'sm', query: '(max-width: 599px)' },
       { name: 'md', query: '(min-width: 600px) and (max-width: 899px)' },

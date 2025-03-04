@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ItemType } from '../../sys/types';
 import { useParams } from 'react-router-dom';
-import { useAppStateContext } from '../../context/useAppStateContext';
-import { SET_ITEMS } from '../../sys/constants';
 
 const useItemData = () => {
   const params = useParams();
