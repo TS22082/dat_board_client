@@ -1,7 +1,9 @@
 # Dat-Board
 
 ## Description
-Dat-Board is an innovative application designed to help users create, nest, and manage items with ease. Each item can be customized using widgets, providing a flexible and dynamic user experience.
+Dat-Board helps users organize their thoughts in a new way. It's an app that can be used as little or as much as desired, allowing them to customize the app to suit their individual needs.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e91dc518-0df9-4969-8a92-cd2c82494d76/deploy-status)](https://app.netlify.com/sites/datboard/deploys)
 
 ## Features
 - **Item Creation & Nesting**: Easily add new items and organize them hierarchically.
